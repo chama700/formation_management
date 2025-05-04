@@ -3,7 +3,7 @@
 
 - mkdir web_application
 - cd web_application/
-- 
+  
 ## Step 2: Create the docker-compose.yml file
 
 Create a simple LAMP stack (Linux + Apache + MySQL + PHP) to run 
