@@ -19,6 +19,7 @@ composer -v
 
 ## Step 3: Create public/index.php
 This will help test if PHP is working.
+
 ```php
 <?php
 phpinfo()
