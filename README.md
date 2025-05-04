@@ -14,8 +14,8 @@ Note : Docker/Composer versions
 docker -v
 composer -v
 ```
-Docker version 27.3.1, build ce12230
-Composer version 2.8.4 2024-12-11 11:57:47
+- Docker version 27.3.1, build ce12230
+- Composer version 2.8.4 2024-12-11 11:57:47
 
 ## Step 3: Create public/index.php
 This will help test if PHP is working.
