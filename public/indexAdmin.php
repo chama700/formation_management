@@ -2,6 +2,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use App\Controllers\Admin\CityController;
 use App\Controllers\Admin\CountryController;
 use App\Controllers\Admin\DashboardController;
 
@@ -17,11 +18,14 @@ $action = $parts[1] ?? 'index';
 $id = $parts[2] ?? null;
 
 switch ($controller) {
+    case 'dashboard':
+        $ctrl = new DashboardController();
+        break;
     case 'country':
         $ctrl = new CountryController();
         break;
-    case 'dashboard':
-        $ctrl = new DashboardController();
+    case 'city':
+        $ctrl = new CityController();
         break;
     default:
         echo "Contrôleur non trouvé.";
