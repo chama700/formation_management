@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FormExpert - Professional Training Solutions</title>
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../../../css/styles.css" />
 </head>
 <body>
-<?php require_once 'header.html' ?>
 <section class="hero">
     <div class="container hero-content">
         <h1>Excellence in Professional Training</h1>
@@ -26,7 +25,7 @@
                 <p>Our training programs are conducted in various cities around the world, making quality education accessible to professionals globally.</p>
             </div>
             <div class="about-image">
-                <img src="../uploads/about_us.jpeg" alt="Training session">
+                <img src="../../../uploads/about_us.jpeg" alt="Training session">
             </div>
         </div>
     </div>
@@ -57,25 +56,25 @@
         <h2 class="section-title">Previous Trainings</h2>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="../uploads/Professional-Scrum-Master-2-Certificate.webp" alt="Training Session 1">
+                <img src="../../../uploads/Professional-Scrum-Master-2-Certificate.webp" alt="Training Session 1">
                 <div class="gallery-caption">
                     <h3>Scrum Certification - Paris</h3>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="../uploads/Certificate-Final-london.png" alt="Training Session 2">
+                <img src="../../../uploads/Certificate-Final-london.png" alt="Training Session 2">
                 <div class="gallery-caption">
                     <h3>JEE Workshop - London</h3>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="../uploads/berlin.jpeg" alt="Training Session 3">
+                <img src="../../../uploads/berlin.jpeg" alt="Training Session 3">
                 <div class="gallery-caption">
                     <h3>ITIL Masterclass - Berlin</h3>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="../uploads/bigData.jpeg" alt="Training Session 4">
+                <img src="../../../uploads/bigData.jpeg" alt="Training Session 4">
                 <div class="gallery-caption">
                     <h3>Big Data Summit - New York</h3>
                 </div>
@@ -89,35 +88,35 @@
         <h2 class="section-title">Our Training Domains</h2>
         <div class="domain-cards">
             <div class="domain-card">
-                <img src="../uploads/cobit.webp" alt="Management Domain">
+                <img src="../../../uploads/cobit.webp" alt="Management Domain">
                 <div class="domain-content">
                     <h3>Management</h3>
                     <p>Project management methodologies including Scrum, Prince2, and service management frameworks like ITIL and COBIT.</p>
-                    <a href="formations.php?domain=Management" class="btn">View Courses</a>
+                    <a href="../../../includes/formations.php?domain=Management" class="btn">View Courses</a>
                 </div>
             </div>
             <div class="domain-card">
-                <img src="../uploads/it.png" alt="IT Domain">
+                <img src="../../../uploads/it.png" alt="IT Domain">
                 <div class="domain-content">
                     <h3>IT Development</h3>
                     <p>Programming and development courses covering JEE, Web Technologies, and other cutting-edge frameworks.</p>
-                    <a href="formations.php?domain=IT" class="btn">View Courses</a>
+                    <a href="../../../includes/formations.php?domain=IT" class="btn">View Courses</a>
                 </div>
             </div>
             <div class="domain-card">
-                <img src="../uploads/Big-data-main-application-areas.png" alt="Big Data Domain">
+                <img src="../../../uploads/Big-data-main-application-areas.png" alt="Big Data Domain">
                 <div class="domain-content">
                     <h3>Big Data</h3>
                     <p>Advanced courses on data processing frameworks including Hadoop, Spark, and modern analytics tools.</p>
-                    <a href="formations.php?domain=BigData" class="btn">View Courses</a>
+                    <a href="../../../includes/formations.php?domain=BigData" class="btn">View Courses</a>
                 </div>
             </div>
             <div class="domain-card">
-                <img src="../uploads/PhysicalNetworkDiagram.jpg" alt="Networking Domain">
+                <img src="../../../uploads/PhysicalNetworkDiagram.jpg" alt="Networking Domain">
                 <div class="domain-content">
                     <h3>Networking</h3>
                     <p>Network infrastructure and certification courses including CISCO certifications and network security.</p>
-                    <a href="formations.php?domain=Networking" class="btn">View Courses</a>
+                    <a href="../../../includes/formations.php?domain=Networking" class="btn">View Courses</a>
                 </div>
             </div>
         </div>
@@ -128,9 +127,8 @@
     <div class="container">
         <h2>Ready to Enhance Your Professional Skills?</h2>
         <p>Explore our comprehensive catalog of courses and find the perfect training program to meet your career development goals.</p>
-        <a href="/includes/formations.php" class="btn">Browse Formations</a>
+        <a href="../../../includes/formations.php" class="btn">Browse Formations</a>
     </div>
 </section>
-<?php require_once 'footer.html' ?>
 </body>
 </html>
