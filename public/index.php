@@ -3,7 +3,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Core\Database;
-use App\Controllers\HomeController;
+use App\Controllers\Client\HomeController;
 
 $page = $_GET['page'] ?? 'home';
 

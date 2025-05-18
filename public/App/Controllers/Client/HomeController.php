@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Client;
 
-use App\Models\Country;
 use App\Core\BaseControllerFrontend;
+
 class HomeController extends BaseControllerFrontend
 {
     public function index() {
-        $countryModel = new Country();
-        $countries = $countryModel->all();
-
-        $this->view('home/index', [
+        $this->view('client/home/index', [
             'title' => 'FormExpert - Home',
         ]);
     }

@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FormExpert - Our Formations</title>
-    <link rel="stylesheet" href="../css/formations.css" />
+    <link rel="stylesheet" href="../../../../css/formations.css" />
 </head>
 <body>
-<?php require_once 'header.html' ?>
 <section class="page-header">
     <div class="container">
         <h1>Our Training Programs</h1>
@@ -76,7 +75,7 @@
             <!-- Formation Card 1 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="../uploads/scrum.png" alt="Scrum Course">
+                    <img src="../../../../uploads/scrum.png" alt="Scrum Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Management</span>
@@ -109,7 +108,7 @@
             <!-- Formation Card 2 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="../uploads/itil.png" alt="ITIL Course">
+                    <img src="../../../../uploads/itil.png" alt="ITIL Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Management</span>
@@ -142,7 +141,7 @@
             <!-- Formation Card 3 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="../uploads/iit-jee-course.jpg" alt="JEE Course">
+                    <img src="../../../../uploads/iit-jee-course.jpg" alt="JEE Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Computer Science</span>
@@ -175,7 +174,7 @@
             <!-- Formation Card 4 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="../uploads/hadoop-hdfs.png" alt="Hadoop Course">
+                    <img src="../../../../uploads/hadoop-hdfs.png" alt="Hadoop Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Computer Science</span>
@@ -208,7 +207,7 @@
             <!-- Formation Card 5 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="../uploads/cobit.jpeg" alt="COBIT Course">
+                    <img src="../../../../uploads/cobit.jpeg" alt="COBIT Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Management</span>
@@ -241,7 +240,7 @@
             <!-- Formation Card 6 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="../uploads/web-development.jpg" alt="Web Technologies Course">
+                    <img src="../../../../uploads/web-development.jpg" alt="Web Technologies Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Computer Science</span>
@@ -309,7 +308,7 @@
                 if (dateFrom || dateTo) {
                     // Match date range like "June 15, 2025 - June 17, 2025"
                     const dateRangeMatch = dateText.match(/([A-Za-z]+\s\d{1,2},\s\d{4})\s*-\s*([A-Za-z]+\s\d{1,2},\s\d{4})/);
-console.log(dateRangeMatch)
+                    console.log(dateRangeMatch)
                     if (dateRangeMatch && dateRangeMatch.length === 3) {
                         const startDate = new Date(dateRangeMatch[1]);
                         const endDate = new Date(dateRangeMatch[2]);
@@ -333,8 +332,5 @@ console.log(dateRangeMatch)
         });
     });
 </script>
-
-
-<?php require_once 'footer.html' ?>
 </body>
 </html>

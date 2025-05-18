@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FormExpert - Contact</title>
-    <link rel="stylesheet" href="../css/contact.css">
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../../../../css/contact.css">
+    <link rel="stylesheet" href="../../../../css/styles.css" />
 </head>
 <body>
-<?php require_once 'header.html' ?>
 <section class="hero-section">
     <div class="container">
         <h1>Contact Us</h1>
@@ -79,19 +78,5 @@
         </div>
     </div>
 </section>
-
-<section class="map-section">
-    <div class="container">
-        <h2>Find Us On The Map</h2>
-        <div class="map-container">
-            <div class="map-placeholder">
-                <img src="/api/placeholder/1200/400" alt="Map Location">
-            </div>
-        </div>
-    </div>
-</section>
-
-<?php require_once 'footer.html' ?>
-
 </body>
 </html>
