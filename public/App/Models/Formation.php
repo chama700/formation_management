@@ -1,0 +1,87 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Models;
+
+use App\Core\Database;
+use PDO;
+
+class Formation extends Database
+{
+    /**
+     * @var PDO
+     */
+    private $db;
+
+    /**
+     *
+     */
+    public function __construct() {
+        $this->db = Database::getInstance();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAll()
+    {
+        $sql = "SELECT f.*, 
+                   c.name as course_name, 
+                   ci.name as city_name, 
+                   CONCAT(t.firstName, ' ', t.lastName) as trainer_name
+            FROM formations f
+            JOIN courses c ON f.course_id = c.id
+            JOIN cities ci ON f.city_id = ci.id
+            JOIN trainers t ON f.trainer_id = t.id";
+        return $this->query($sql);
+    }
+
+    /**
+     * @param $data
+     * @return false|string
+     */
+    public function create($data)
+    {
+        $sql = "INSERT INTO formations (price, mode, course_id, city_id, trainer_id)
+                VALUES (:price, :mode, :course_id, :city_id, :trainer_id)";
+        return $this->execute($sql, $data);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id)
+    {
+        return $this->queryOne("SELECT * FROM formations WHERE id = :id", ['id' => $id]);
+    }
+
+    /**
+     * @param $id
+     * @param $data
+     * @return false|string
+     */
+    public function update($id, $data)
+    {
+        $data['id'] = $id;
+        $sql = "UPDATE formations SET price = :price, mode = :mode, course_id = :course_id, city_id = :city_id, trainer_id = :trainer_id WHERE id = :id";
+        return $this->execute($sql, $data);
+    }
+
+    /**
+     * @param $id
+     * @return false|string
+     */
+    public function delete($id)
+    {
+        return $this->execute("DELETE FROM formations WHERE id = :id", ['id' => $id]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function count() {
+        $stmt = $this->db->query("SELECT COUNT(*) as total FROM countries");
+        return $stmt->fetch()['total'];
+    }
+}

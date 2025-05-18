@@ -28,6 +28,26 @@ class Database
         return self::$pdo;
     }
 
+    public function query($sql, $params = [])
+    {
+        $stmt = self::$pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function queryOne($sql, $params = [])
+    {
+        $stmt = self::$pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function execute($sql, $params = [])
+    {
+        $stmt = self::$pdo->prepare($sql);
+        $stmt->execute($params);
+        return self::$pdo->lastInsertId();
+    }
     public static function getInstance(): PDO
     {
         return self::connect();
