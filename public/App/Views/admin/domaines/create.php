@@ -49,7 +49,7 @@
 
 <!-- Formulaire HTML -->
 <div class="admin-form-container">
-    <h2>Ajouter un domaines </h2>
+    <h2>Ajouter un domaine </h2>
     <form action="/admin/domaines/store" method="POST">
         <div class="mb-4">
             <input type="text" name="name" placeholder="Nom du domaine" required
