@@ -1,22 +1,34 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
 use App\Core\Database;
 use PDO;
 
-class City {
+class City
+{
+    /**
+     * @var PDO
+     */
     private PDO $db;
 
     public function __construct() {
         $this->db = Database::getInstance();
     }
 
+    /**
+     * @return array
+     */
     public function all(): array {
         $stmt = $this->db->query("SELECT * FROM cities ORDER BY name ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $id
+     * @return array|null
+     */
     public function find(int $id): ?array {
         $stmt = $this->db->prepare("SELECT * FROM cities WHERE id = ?");
         $stmt->execute([$id]);
@@ -24,26 +36,48 @@ class City {
         return $result ?: null;
     }
 
+    /**
+     * @param $name
+     * @param $country_id
+     * @return bool
+     */
     public function create($name, $country_id) {
         $stmt = $this->db->prepare("INSERT INTO cities (name, country_id) VALUES (?, ?)");
         return $stmt->execute([$name, $country_id]);
     }
 
+    /**
+     * @param int $id
+     * @param string $name
+     * @return bool
+     */
     public function update(int $id, string $name): bool {
         $stmt = $this->db->prepare("UPDATE cities SET name = ? WHERE id = ?");
         return $stmt->execute([$name, $id]);
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function delete(int $id): bool {
         $stmt = $this->db->prepare("DELETE FROM cities WHERE id = ?");
         return $stmt->execute([$id]);
     }
 
+    /**
+     * @return int
+     */
     public function count(): int {
         $stmt = $this->db->query("SELECT COUNT(*) as total FROM cities");
         return (int) $stmt->fetch()['total'];
     }
 
+    /**
+     * @param string|null $filter_id
+     * @param string|null $filter_name
+     * @return array
+     */
     public function filter(?string $filter_id = null, ?string $filter_name = null): array {
         $query = "SELECT cities.*, countries.name AS country_name 
               FROM cities 
@@ -70,5 +104,4 @@ class City {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
 }
