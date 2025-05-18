@@ -76,7 +76,7 @@
             <!-- Formation Card 1 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="/api/placeholder/400/200" alt="Scrum Course">
+                    <img src="../uploads/scrum.png" alt="Scrum Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Management</span>
@@ -109,7 +109,7 @@
             <!-- Formation Card 2 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="/api/placeholder/400/200" alt="ITIL Course">
+                    <img src="../uploads/itil.png" alt="ITIL Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Management</span>
@@ -142,7 +142,7 @@
             <!-- Formation Card 3 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="/api/placeholder/400/200" alt="JEE Course">
+                    <img src="../uploads/iit-jee-course.jpg" alt="JEE Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Computer Science</span>
@@ -175,7 +175,7 @@
             <!-- Formation Card 4 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="/api/placeholder/400/200" alt="Hadoop Course">
+                    <img src="../uploads/hadoop-hdfs.png" alt="Hadoop Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Computer Science</span>
@@ -208,7 +208,7 @@
             <!-- Formation Card 5 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="/api/placeholder/400/200" alt="COBIT Course">
+                    <img src="../uploads/cobit.jpeg" alt="COBIT Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Management</span>
@@ -241,7 +241,7 @@
             <!-- Formation Card 6 -->
             <div class="formation-card">
                 <div class="formation-image">
-                    <img src="/api/placeholder/400/200" alt="Web Technologies Course">
+                    <img src="../uploads/web-development.jpg" alt="Web Technologies Course">
                 </div>
                 <div class="formation-content">
                     <span class="formation-domain">Computer Science</span>
@@ -283,67 +283,58 @@
 </section>
 
 <script>
-    // Simple JavaScript to handle filtering and form submission
-    document.addEventListener('DOMContentLoaded', function() {
-        const domainSelect = document.getElementById('domain');
-        const subjectSelect = document.getElementById('subject');
-        const courseSelect = document.getElementById('course');
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('filter-form');
+        const resetButton = form.querySelector('button[type="reset"]');
+        const cards = document.querySelectorAll('.formation-card');
 
-        // Domain to subjects mapping
-        const domainSubjects = {
-            'management': ['Management de Projet', 'Management de Services'],
-            'computer-science': ['IT', 'Big Data', 'Reseau']
-        };
-
-        // Subject to courses mapping
-        const subjectCourses = {
-            'Management de Projet': ['Scrum', 'Prince 2'],
-            'Management de Services': ['ITIL', 'COBIT'],
-            'IT': ['JEE', 'Web Technologies'],
-            'Big Data': ['Hadoop', 'Spark'],
-            'Reseau': ['CISCO']
-        };
-
-        // Update subjects based on domain selection
-        domainSelect.addEventListener('change', function() {
-            const selectedDomain = this.value;
-
-            // Clear subject options
-            subjectSelect.innerHTML = '<option value="">All Subjects</option>';
-            courseSelect.innerHTML = '<option value="">All Courses</option>';
-
-            if (selectedDomain && domainSubjects[selectedDomain]) {
-                // Add new subject options
-                domainSubjects[selectedDomain].forEach(subject => {
-                    const option = document.createElement('option');
-                    option.value = subject.toLowerCase().replace(' ', '-');
-                    option.textContent = subject;
-                    subjectSelect.appendChild(option);
-                });
-            }
-        });
-
-        subjectSelect.addEventListener('change', function() {
-            const selectedSubject = this.options[this.selectedIndex].text;
-
-            courseSelect.innerHTML = '<option value="">All Courses</option>';
-
-            if (selectedSubject && subjectCourses[selectedSubject]) {
-                subjectCourses[selectedSubject].forEach(course => {
-                    const option = document.createElement('option');
-                    option.value = course.toLowerCase().replace(' ', '-');
-                    option.textContent = course;
-                    courseSelect.appendChild(option);
-                });
-            }
-        });
-
-        document.getElementById('filter-form').addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
-            alert('Search filters applied. In a real implementation, this would fetch filtered results.');
+
+            const domain = form.domain.value.trim().toLowerCase();
+            const location = form.location.value.trim().toLowerCase();
+            const dateFrom = form['date-from'].value;
+            const dateTo = form['date-to'].value;
+
+            cards.forEach(card => {
+                const domainText = card.querySelector('.formation-domain')?.textContent.toLowerCase() || '';
+                const locationText = card.querySelector('.formation-detail:nth-child(1) span:nth-child(2)')?.textContent.toLowerCase() || '';
+                const dateText = card.querySelector('.formation-detail:nth-child(2) span:nth-child(2)')?.textContent || '';
+
+                let show = true;
+
+                if (domain && !domainText.includes(domain)) show = false;
+                if (location && !locationText.includes(location)) show = false;
+
+                if (dateFrom || dateTo) {
+                    // Match date range like "June 15, 2025 - June 17, 2025"
+                    const dateRangeMatch = dateText.match(/([A-Za-z]+\s\d{1,2},\s\d{4})\s*-\s*([A-Za-z]+\s\d{1,2},\s\d{4})/);
+console.log(dateRangeMatch)
+                    if (dateRangeMatch && dateRangeMatch.length === 3) {
+                        const startDate = new Date(dateRangeMatch[1]);
+                        const endDate = new Date(dateRangeMatch[2]);
+
+                        if (dateFrom && new Date(dateFrom) > endDate) show = false;
+                        if (dateTo && new Date(dateTo) < startDate) show = false;
+                    }
+                }
+
+                card.style.display = show ? '' : 'none';
+            });
+        });
+
+        resetButton.addEventListener('click', function () {
+            setTimeout(() => {
+                form.reset();
+                cards.forEach(card => {
+                    card.style.display = '';
+                });
+            }, 10);
         });
     });
 </script>
+
+
 <?php require_once 'footer.html' ?>
 </body>
 </html>
