@@ -28,6 +28,27 @@ class Course
         return $stmt->fetchAll();
     }
 
+    public function filterCourse($filter_id, $filter_name) {
+        $query = "SELECT * FROM courses WHERE 1=1";
+
+        if ($filter_id) {
+            $query .= " AND id LIKE :filter_id";
+        }
+        if ($filter_name) {
+            $query .= " AND name LIKE :filter_name";
+        }
+        $stmt = $this->db->prepare($query);
+
+        if ($filter_id) {
+            $stmt->bindValue(':filter_id', '%' . $filter_id . '%');
+        }
+        if ($filter_name) {
+            $stmt->bindValue(':filter_name', '%' . $filter_name . '%');
+        }
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     /**
      * @param $id
      * @return mixed
