@@ -1,55 +1,67 @@
 <style>
     body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        background-color: #f9f9f9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 40px;
+        background-color: #f4f6f8;
+        color: #333;
     }
 
-    h2 {
-        margin-bottom: 20px;
-        color: #333;
+    h1 {
+        font-size: 28px;
+        color: #2c3e50;
+        margin-bottom: 30px;
     }
 
     .btn {
         display: inline-block;
-        background-color: #007BFF;
+        background: linear-gradient(to right, #007bff, #0056b3);
         color: white;
-        padding: 10px 16px;
+        padding: 12px 20px;
         text-decoration: none;
-        border-radius: 4px;
-        margin-bottom: 20px;
-        transition: background-color 0.3s ease;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .btn:hover {
-        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.2);
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        background-color: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
 
     th, td {
-        padding: 12px 15px;
+        padding: 16px 20px;
         text-align: left;
-        border-bottom: 1px solid #ddd;
     }
 
     th {
-        background-color: #f2f2f2;
-        color: #333;
+        background-color: #f0f3f5;
+        color: #34495e;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    td {
+        border-top: 1px solid #e8eaf0;
+        font-size: 14px;
     }
 
     tr:hover {
-        background-color: #f5f5f5;
+        background-color: #f9fbfd;
     }
 
     td a {
-        color: #dc3545;
+        color: #e74c3c;
         text-decoration: none;
+        font-weight: 500;
     }
 
     td a:hover {
@@ -62,7 +74,10 @@
         }
 
         tr {
-            margin-bottom: 15px;
+            background-color: #fff;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         th, td {
@@ -73,23 +88,30 @@
 
         th::before, td::before {
             position: absolute;
-            left: 15px;
+            left: 20px;
             width: 45%;
             white-space: nowrap;
             text-align: left;
             font-weight: bold;
         }
 
-        th:nth-of-type(1)::before { content: "Prix"; }
-        th:nth-of-type(2)::before { content: "Mode"; }
-        th:nth-of-type(3)::before { content: "Cours"; }
-        th:nth-of-type(4)::before { content: "Ville"; }
-        th:nth-of-type(5)::before { content: "Formateur"; }
-        th:nth-of-type(6)::before { content: "Actions"; }
+        th:nth-of-type(1)::before,
+        td:nth-of-type(1)::before { content: "Prix"; }
+        th:nth-of-type(2)::before,
+        td:nth-of-type(2)::before { content: "Mode"; }
+        th:nth-of-type(3)::before,
+        td:nth-of-type(3)::before { content: "Cours"; }
+        th:nth-of-type(4)::before,
+        td:nth-of-type(4)::before { content: "Ville"; }
+        th:nth-of-type(5)::before,
+        td:nth-of-type(5)::before { content: "Formateur"; }
+        th:nth-of-type(6)::before,
+        td:nth-of-type(6)::before { content: "Actions"; }
     }
 </style>
 
-<h2>Liste des formations</h2>
+
+<h1>Liste des formations</h1>
 <a href="/admin/formations/create" class="btn">Ajouter une formation</a>
 
 <table>

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Country List</title>
+    <title>Liste des formateurs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         function confirmDelete(event) {
-            const confirmation = confirm("Are you sure you want to delete this trainer?");
+            const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce formateur");
             if (!confirmation) {
                 event.preventDefault(); // cancel navigation
                 return false;
@@ -22,13 +22,13 @@
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
         <form action="/admin/trainers" method="GET" class="flex space-x-6">
             <div class="flex items-center space-x-2">
-                <label for="filter_id" class="text-lg">Filter by ID:</label>
-                <input type="text" id="filter_id" name="filter_id" value="<?php echo isset($_GET['filter_id']) ? htmlspecialchars($_GET['filter_id']) : ''; ?>" placeholder="Trainers ID" class="border border-gray-300 rounded-lg px-4 py-2 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label for="filter_id" class="text-lg">Filtrer par ID:</label>
+                <input type="text" id="filter_id" name="filter_id" value="<?php echo isset($_GET['filter_id']) ? htmlspecialchars($_GET['filter_id']) : ''; ?>" placeholder="Filtrer par ID" class="border border-gray-300 rounded-lg px-4 py-2 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div class="flex items-center space-x-2">
-                <label for="filter_name" class="text-lg">Filter by Name:</label>
-                <input type="text" id="filter_name" name="filter_name" value="<?php echo isset($_GET['filter_name']) ? htmlspecialchars($_GET['filter_name']) : ''; ?>" placeholder="Trainers name" class="border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label for="filter_name" class="text-lg">Filtrer par  Nom:</label>
+                <input type="text" id="filter_name" name="filter_name" value="<?php echo isset($_GET['filter_name']) ? htmlspecialchars($_GET['filter_name']) : ''; ?>" placeholder="Nom du Formateur" class="border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <button type="submit" class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
@@ -37,10 +37,10 @@
         </form>
     </div>
 
-    <h1 class="text-3xl font-bold text-center mb-6">Trainers List</h1>
+    <h1 class="text-3xl font-bold text-center mb-6">Liste des formateurs</h1>
 
     <div class="text-right mb-4">
-        <a href="/admin/trainers/create" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Add a trainers</a>
+        <a href="/admin/trainers/create" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Ajouter Formateur</a>
     </div>
 
     <div class="overflow-x-auto bg-white shadow-md rounded-lg">
@@ -75,8 +75,8 @@
                                     <input type="file" name="photo" class="w-full">
                                 </td>
                                 <td class="py-2 px-4">
-                                    <button type="submit" class="text-green-600 hover:text-green-800">✔ Save</button>
-                                    <a href="/admin/trainers" class="text-gray-500 ml-4 hover:underline">Cancel</a>
+                                    <button type="submit" class="text-green-600 hover:text-green-800">✔ Enregistrer</button>
+                                    <a href="/admin/trainers" class="text-gray-500 ml-4 hover:underline">Annuler</a>
                                 </td>
                             </form>
                         </tr>
@@ -92,14 +92,14 @@
                                 <?php endif; ?>
                             </td>
                             <td class="py-2 px-4">
-                                <a href="/admin/trainers?edit_id=<?= $trainer['id'] ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
-                                <a href="/admin/trainers/delete/<?= $trainer['id'] ?>" onclick="return confirmDelete(event)" class="text-red-500 hover:text-red-700 ml-4">Delete</a>
+                                <a href="/admin/trainers?edit_id=<?= $trainer['id'] ?>" class="text-blue-500 hover:text-blue-700">Modifier</a>
+                                <a href="/admin/trainers/delete/<?= $trainer['id'] ?>" onclick="return confirmDelete(event)" class="text-red-500 hover:text-red-700 ml-4">Supprimer</a>
                             </td>
                         </tr>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr><td colspan="3" class="text-center py-4">No trainers found.</td></tr>
+                <tr><td colspan="3" class="text-center py-4">Aucun Formateur trouvé.</td></tr>
             <?php endif; ?>
             </tbody>
         </table>
