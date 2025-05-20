@@ -21,6 +21,13 @@ class Domaine
     }
 
     /**
+     * @return array
+     */
+    public static function getAll() {
+        $db = Database::getInstance();
+        return $db->query("SELECT * FROM domain")->fetchAll(PDO::FETCH_ASSOC);
+    }
+    /**
      * @param $filter_id
      * @param $filter_name
      * @return array

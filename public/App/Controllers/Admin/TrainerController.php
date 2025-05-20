@@ -105,6 +105,9 @@ class TrainerController extends BaseController
 
         if (!empty($_FILES['photo']['name'])) {
             $filename = uniqid() . '_' . basename($_FILES['photo']['name']);
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
             $uploadPath = $uploadDir . $filename;
 
             if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadPath)) {

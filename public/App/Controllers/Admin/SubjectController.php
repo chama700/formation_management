@@ -114,9 +114,18 @@ class SubjectController extends BaseController
         ];
 
         // Gestion du logo si un nouveau fichier est uploadé
+        $uploadDir = realpath(__DIR__ . '/../../../uploads/subjects');
+
+        if ($uploadDir === false) {
+            $uploadDir = __DIR__ . '/../../../uploads/subjects';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+        }
+
         if (!empty($_FILES['logo']['name'])) {
-            $filename = uniqid() . '_' . $_FILES['logo']['name'];
-            $destination = __DIR__ . '/../../../uploads/subjects/' . $filename;
+            $filename = uniqid() . '_' . basename($_FILES['logo']['name']);
+            $destination = $uploadDir . '/' . $filename;
 
             if (move_uploaded_file($_FILES['logo']['tmp_name'], $destination)) {
                 $data['logo'] = '/uploads/subjects/' . $filename;
@@ -124,6 +133,7 @@ class SubjectController extends BaseController
                 die('Erreur lors de l\'upload du logo.');
             }
         }
+
 
         // Mise à jour via le modèle
         $this->model->update($id, $data);

@@ -374,6 +374,10 @@ footer {
     color: #999;
 }
 
+.formation-meta {
+    margin-bottom: 16px;
+
+}
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;

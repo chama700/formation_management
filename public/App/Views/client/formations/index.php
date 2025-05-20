@@ -20,50 +20,63 @@
             <h2>Find Your Perfect Course</h2>
             <form id="filter-form">
                 <div class="filter-group">
+
                     <div class="filter-item">
                         <label for="domain">Domain</label>
                         <select id="domain" name="domain">
                             <option value="">All Domains</option>
-                            <option value="management">Management</option>
-                            <option value="computer-science">Computer Science</option>
+                            <?php foreach ($domains as $domain): ?>
+                                <option value="<?= htmlspecialchars($domain['id']) ?>"
+                                    <?= (isset($filters['domain_id']) && $filters['domain_id'] == $domain['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($domain['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
+
                     <div class="filter-item">
                         <label for="subject">Subject</label>
                         <select id="subject" name="subject">
                             <option value="">All Subjects</option>
-                            <!-- Subjects will be loaded based on domain selection -->
+                            <?php foreach ($subjects as $subject): ?>
+                                <option value="<?= htmlspecialchars($subject['id']) ?>"
+                                    <?= (isset($filters['subject_id']) && $filters['subject_id'] == $subject['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($subject['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
+
                     <div class="filter-item">
                         <label for="course">Course</label>
                         <select id="course" name="course">
                             <option value="">All Courses</option>
-                            <!-- Courses will be loaded based on subject selection -->
+                            <?php foreach ($courses as $course): ?>
+                                <option value="<?= htmlspecialchars($course['id']) ?>"
+                                    <?= (isset($filters['course_id']) && $filters['course_id'] == $course['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($course['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
+
                 </div>
+
                 <div class="filter-group">
                     <div class="filter-item">
-                        <label for="location">Location</label>
-                        <select id="location" name="location">
+                        <label for="city_id">Location</label>
+                        <select id="city_id" name="city_id">
                             <option value="">All Locations</option>
-                            <option value="paris">Paris, France</option>
-                            <option value="london">London, UK</option>
-                            <option value="berlin">Berlin, Germany</option>
-                            <option value="madrid">Madrid, Spain</option>
-                            <option value="remote">Remote</option>
+                            <?php foreach ($cities as $city): ?>
+                                <option value="<?= htmlspecialchars($city['id']) ?>"
+                                    <?= (isset($filters['city_id']) && $filters['city_id'] == $city['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($city['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="filter-item">
-                        <label for="date-from">Date From</label>
-                        <input type="date" id="date-from" name="date-from">
-                    </div>
-                    <div class="filter-item">
-                        <label for="date-to">Date To</label>
-                        <input type="date" id="date-to" name="date-to">
-                    </div>
                 </div>
+
                 <div class="filter-actions">
                     <button type="reset" class="btn btn-secondary">Reset</button>
                     <button type="submit" class="btn">Search Courses</button>
@@ -72,203 +85,44 @@
         </div>
 
         <div class="formation-grid">
-            <!-- Formation Card 1 -->
-            <div class="formation-card">
-                <div class="formation-image">
-                    <img src="../../../../uploads/scrum.png" alt="Scrum Course">
-                </div>
-                <div class="formation-content">
-                    <span class="formation-domain">Management</span>
-                    <h3 class="formation-title">Scrum Fundamentals</h3>
-                    <div class="formation-details">
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📍</span>
-                            <span>Paris, France</span>
+            <?php foreach ($formations as $formation): ?>
+                <div class="formation-card" data-domain-id="<?= htmlspecialchars($formation['domain_id']) ?>"
+                     data-subject-id="<?= htmlspecialchars($formation['subject_id']) ?>"
+                     data-course-id="<?= htmlspecialchars($formation['course_id']) ?>">
+                    <div class="formation-image">
+                        <img src="<?= htmlspecialchars($formation['subject_logo']) ?>" alt="<?= htmlspecialchars($formation['course_name']) ?>">
+                    </div>
+                    <div class="formation-content">
+                        <h3 class="formation-title"><?= htmlspecialchars($formation['title'] ?? $formation['course_name']) ?></h3>
+                        <div class="formation-meta">
+                            <span class="formation-domain"><strong>Domain:</strong> <?= htmlspecialchars($formation['domain_name']) ?></span><br>
+                            <span class="formation-subject"><strong>Subject:</strong> <?= htmlspecialchars($formation['subject_name']) ?></span>
                         </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📅</span>
-                            <span>June 15-17, 2025</span>
+                        <div class="formation-details">
+                            <div class="formation-detail" data-city-id="<?= htmlspecialchars($formation['city_id']) ?>">
+                                <span class="formation-detail-icon">📍</span>
+                                <span><?= htmlspecialchars($formation['city_name']) ?></span>
+                            </div>
+                            <div class="formation-detail">
+                                <span class="formation-detail-icon">📅</span>
+                                <span><?= htmlspecialchars($formation['start_date'] ?? 'TBD') ?></span>
+                            </div>
+                            <div class="formation-detail">
+                                <span class="formation-detail-icon">👨‍🏫</span>
+                                <span><?= htmlspecialchars($formation['trainer_name']) ?></span>
+                            </div>
+                            <div class="formation-detail">
+                                <span class="formation-detail-icon"><?= $formation['mode'] === 'online' ? '🖥️' : '🏢' ?></span>
+                                <span><?= $formation['mode'] === 'online' ? 'Online' : 'On-site' ?></span>
+                            </div>
                         </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">👨‍🏫</span>
-                            <span>Michel Dubois</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">🏢</span>
-                            <span>On-site</span>
+                        <div class="formation-actions">
+                            <span class="formation-price">€<?= htmlspecialchars($formation['price']) ?></span>
+                            <a href="#" class="btn">Register</a>
                         </div>
                     </div>
-                    <div class="formation-actions">
-                        <span class="formation-price">€1,200</span>
-                        <a href="#" class="btn">Register</a>
-                    </div>
                 </div>
-            </div>
-
-            <!-- Formation Card 2 -->
-            <div class="formation-card">
-                <div class="formation-image">
-                    <img src="../../../../uploads/itil.png" alt="ITIL Course">
-                </div>
-                <div class="formation-content">
-                    <span class="formation-domain">Management</span>
-                    <h3 class="formation-title">ITIL Foundation</h3>
-                    <div class="formation-details">
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📍</span>
-                            <span>Remote</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📅</span>
-                            <span>July 5-7, 2025</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">👨‍🏫</span>
-                            <span>Sophie Martin</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">🖥️</span>
-                            <span>Online</span>
-                        </div>
-                    </div>
-                    <div class="formation-actions">
-                        <span class="formation-price">€950</span>
-                        <a href="#" class="btn">Register</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Formation Card 3 -->
-            <div class="formation-card">
-                <div class="formation-image">
-                    <img src="../../../../uploads/iit-jee-course.jpg" alt="JEE Course">
-                </div>
-                <div class="formation-content">
-                    <span class="formation-domain">Computer Science</span>
-                    <h3 class="formation-title">Advanced JEE Development</h3>
-                    <div class="formation-details">
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📍</span>
-                            <span>Berlin, Germany</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📅</span>
-                            <span>June 22-26, 2025</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">👨‍🏫</span>
-                            <span>Hans Mueller</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">🏢</span>
-                            <span>On-site</span>
-                        </div>
-                    </div>
-                    <div class="formation-actions">
-                        <span class="formation-price">€1,800</span>
-                        <a href="#" class="btn">Register</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Formation Card 4 -->
-            <div class="formation-card">
-                <div class="formation-image">
-                    <img src="../../../../uploads/hadoop-hdfs.png" alt="Hadoop Course">
-                </div>
-                <div class="formation-content">
-                    <span class="formation-domain">Computer Science</span>
-                    <h3 class="formation-title">Big Data with Hadoop</h3>
-                    <div class="formation-details">
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📍</span>
-                            <span>London, UK</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📅</span>
-                            <span>July 10-14, 2025</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">👨‍🏫</span>
-                            <span>James Wilson</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">🏢</span>
-                            <span>On-site</span>
-                        </div>
-                    </div>
-                    <div class="formation-actions">
-                        <span class="formation-price">€2,200</span>
-                        <a href="#" class="btn">Register</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Formation Card 5 -->
-            <div class="formation-card">
-                <div class="formation-image">
-                    <img src="../../../../uploads/cobit.jpeg" alt="COBIT Course">
-                </div>
-                <div class="formation-content">
-                    <span class="formation-domain">Management</span>
-                    <h3 class="formation-title">COBIT 2019 Foundation</h3>
-                    <div class="formation-details">
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📍</span>
-                            <span>Madrid, Spain</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📅</span>
-                            <span>August 3-5, 2025</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">👨‍🏫</span>
-                            <span>Elena Rodriguez</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">🏢</span>
-                            <span>On-site</span>
-                        </div>
-                    </div>
-                    <div class="formation-actions">
-                        <span class="formation-price">€1,350</span>
-                        <a href="#" class="btn">Register</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Formation Card 6 -->
-            <div class="formation-card">
-                <div class="formation-image">
-                    <img src="../../../../uploads/web-development.jpg" alt="Web Technologies Course">
-                </div>
-                <div class="formation-content">
-                    <span class="formation-domain">Computer Science</span>
-                    <h3 class="formation-title">Modern Web Technologies</h3>
-                    <div class="formation-details">
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📍</span>
-                            <span>Remote</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">📅</span>
-                            <span>July 20-24, 2025</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">👨‍🏫</span>
-                            <span>David Chen</span>
-                        </div>
-                        <div class="formation-detail">
-                            <span class="formation-detail-icon">🖥️</span>
-                            <span>Online</span>
-                        </div>
-                    </div>
-                    <div class="formation-actions">
-                        <span class="formation-price">€1,500</span>
-                        <a href="#" class="btn">Register</a>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
 
         <div class="pagination">
@@ -284,53 +138,50 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('filter-form');
-        const resetButton = form.querySelector('button[type="reset"]');
-        const cards = document.querySelectorAll('.formation-card');
+
+        const citySelect = document.getElementById('city_id');
+        const domainSelect = document.getElementById('domain');
+        const subjectSelect = document.getElementById('subject');
+        const courseSelect = document.getElementById('course');
+
+        const formationCards = document.querySelectorAll('.formation-card');
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const domain = form.domain.value.trim().toLowerCase();
-            const location = form.location.value.trim().toLowerCase();
-            const dateFrom = form['date-from'].value;
-            const dateTo = form['date-to'].value;
+            const selectedCity = citySelect.value;
+            const selectedDomain = domainSelect.value;
+            const selectedSubject = subjectSelect.value;
+            const selectedCourse = courseSelect.value;
 
-            cards.forEach(card => {
-                const domainText = card.querySelector('.formation-domain')?.textContent.toLowerCase() || '';
-                const locationText = card.querySelector('.formation-detail:nth-child(1) span:nth-child(2)')?.textContent.toLowerCase() || '';
-                const dateText = card.querySelector('.formation-detail:nth-child(2) span:nth-child(2)')?.textContent || '';
+            formationCards.forEach(card => {
+                const cityId = card.querySelector('[data-city-id]')?.getAttribute('data-city-id');
+                const domainId = card.getAttribute('data-domain-id');
+                const subjectId = card.getAttribute('data-subject-id');
+                const courseId = card.getAttribute('data-course-id');
 
-                let show = true;
+                const matchCity = !selectedCity || cityId === selectedCity;
+                const matchDomain = !selectedDomain || domainId === selectedDomain;
+                const matchSubject = !selectedSubject || subjectId === selectedSubject;
+                const matchCourse = !selectedCourse || courseId === selectedCourse;
 
-                if (domain && !domainText.includes(domain)) show = false;
-                if (location && !locationText.includes(location)) show = false;
-
-                if (dateFrom || dateTo) {
-                    // Match date range like "June 15, 2025 - June 17, 2025"
-                    const dateRangeMatch = dateText.match(/([A-Za-z]+\s\d{1,2},\s\d{4})\s*-\s*([A-Za-z]+\s\d{1,2},\s\d{4})/);
-                    console.log(dateRangeMatch)
-                    if (dateRangeMatch && dateRangeMatch.length === 3) {
-                        const startDate = new Date(dateRangeMatch[1]);
-                        const endDate = new Date(dateRangeMatch[2]);
-
-                        if (dateFrom && new Date(dateFrom) > endDate) show = false;
-                        if (dateTo && new Date(dateTo) < startDate) show = false;
-                    }
+                if (matchCity && matchDomain && matchSubject && matchCourse) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
                 }
-
-                card.style.display = show ? '' : 'none';
             });
         });
 
-        resetButton.addEventListener('click', function () {
+        form.addEventListener('reset', function () {
             setTimeout(() => {
-                form.reset();
-                cards.forEach(card => {
+                formationCards.forEach(card => {
                     card.style.display = '';
                 });
-            }, 10);
+            }, 0);
         });
     });
 </script>
+
 </body>
 </html>

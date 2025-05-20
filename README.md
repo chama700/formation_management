@@ -42,6 +42,11 @@ docker-compose up -d
 - User: root
 - Password: root
 
+### Warning: mkdir(): Permission denied : 
+
+sudo chown -R www-data:www-data uploads              
+sudo chmod -R 755 uploads
+
 ## Simple Data :
 
 ```

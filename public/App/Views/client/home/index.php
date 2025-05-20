@@ -87,38 +87,36 @@
     <div class="container">
         <h2 class="section-title">Our Training Domains</h2>
         <div class="domain-cards">
-            <div class="domain-card">
-                <img src="../../../../uploads/cobit.webp" alt="Management Domain">
-                <div class="domain-content">
-                    <h3>Management</h3>
-                    <p>Project management methodologies including Scrum, Prince2, and service management frameworks like ITIL and COBIT.</p>
-                    <a href="client/formations?domain=Management" class="btn">View Courses</a>
+            <?php foreach ($domains as $domain): ?>
+                <div class="domain-card">
+                    <?php
+                    $imagePath = "../../../../uploads/";
+                    switch(strtolower($domain['name'])) {
+                        case 'management':
+                            $imagePath .= "cobit.webp";
+                            break;
+                        case 'computer science':
+                        case 'it development':
+                            $imagePath .= "it.png";
+                            break;
+                        case 'big data':
+                            $imagePath .= "Big-data-main-application-areas.png";
+                            break;
+                        case 'networking':
+                            $imagePath .= "PhysicalNetworkDiagram.jpg";
+                            break;
+                        default:
+                            $imagePath .= "default-domain.jpg";
+                    }
+                    ?>
+                    <img src="<?= htmlspecialchars($imagePath) ?>" alt="<?= htmlspecialchars($domain['name']) ?> Domain">
+                    <div class="domain-content">
+                        <h3><?= htmlspecialchars($domain['name']) ?></h3>
+                        <p><?= htmlspecialchars($domain['description']) ?></p>
+                        <a href="client/formations?domain=<?= urlencode($domain['name']) ?>" class="btn">View Courses</a>
+                    </div>
                 </div>
-            </div>
-            <div class="domain-card">
-                <img src="../../../../uploads/it.png" alt="IT Domain">
-                <div class="domain-content">
-                    <h3>IT Development</h3>
-                    <p>Programming and development courses covering JEE, Web Technologies, and other cutting-edge frameworks.</p>
-                    <a href="client/formations?domain=IT" class="btn">View Courses</a>
-                </div>
-            </div>
-            <div class="domain-card">
-                <img src="../../../../uploads/Big-data-main-application-areas.png" alt="Big Data Domain">
-                <div class="domain-content">
-                    <h3>Big Data</h3>
-                    <p>Advanced courses on data processing frameworks including Hadoop, Spark, and modern analytics tools.</p>
-                    <a href="client/formations?domain=BigData" class="btn">View Courses</a>
-                </div>
-            </div>
-            <div class="domain-card">
-                <img src="../../../../uploads/PhysicalNetworkDiagram.jpg" alt="Networking Domain">
-                <div class="domain-content">
-                    <h3>Networking</h3>
-                    <p>Network infrastructure and certification courses including CISCO certifications and network security.</p>
-                    <a href="client/formations?domain=Networking" class="btn">View Courses</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
