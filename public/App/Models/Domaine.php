@@ -70,4 +70,49 @@ class Domaine
         $stmt = $db->query("SELECT COUNT(*) as total FROM domain");
         return $stmt->fetch()['total'];
     }
+
+    /**
+     * Get all domains with additional display information
+     *
+     * @return array
+     */
+    public static function getAllWithDisplayInfo() {
+        $domains = self::getAll();
+        $domainsWithInfo = [];
+
+        foreach ($domains as $domain) {
+            // Add display information like image path
+            $domain['image_path'] = self::getDomainImagePath($domain['name']);
+            // Add URL-safe slug
+            $domain['slug'] = urlencode($domain['name']);
+
+            $domainsWithInfo[] = $domain;
+        }
+
+        return $domainsWithInfo;
+    }
+
+    /**
+     * Get appropriate image path for a domain based on its name
+     *
+     * @param string $domainName
+     * @return string
+     */
+    private static function getDomainImagePath(string $domainName): string {
+        $basePath = "../../../../uploads/";
+
+        switch(strtolower($domainName)) {
+            case 'management':
+                return $basePath . "cobit.webp";
+            case 'computer science':
+            case 'it development':
+                return $basePath . "it.png";
+            case 'big data':
+                return $basePath . "Big-data-main-application-areas.png";
+            case 'networking':
+                return $basePath . "PhysicalNetworkDiagram.jpg";
+            default:
+                return $basePath . "default-domain.jpg";
+        }
+    }
 }
