@@ -56,19 +56,19 @@ class TrainerController extends BaseController
                 'lastName' => $_POST['lastName'],
                 'description' => $_POST['description'],
             ];
-            // Gestion de l'image uploadée
-            if (!empty($_FILES['photo']['name'])) {
-                $uploadDir = __DIR__ . '/../../../public/uploads/trainers/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0775, true);
-                }
 
-                $extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+            // Chemin d'upload
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/trainers/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0775, true);
+            }
+
+            if (!empty($_FILES['photo']['name'])) {
                 $filename = uniqid() . '_' . basename($_FILES['photo']['name']);
                 $uploadPath = $uploadDir . $filename;
 
                 if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadPath)) {
-                    $data['photo'] = '/uploads/trainers/' . $filename;
+                    $data['photo'] = '/uploads/trainers/' . $filename; // Chemin web
                 } else {
                     die("Erreur lors de l'upload de la photo.");
                 }
@@ -76,12 +76,12 @@ class TrainerController extends BaseController
                 $data['photo'] = ''; // ou une valeur par défaut
             }
 
-            $trainerModel = new Trainer();
-            $trainerModel->create($data);
+            $this->trainerModel->create($data);
+            header("Location: /admin/trainers");
+            exit;
         }
-        header("Location: /admin/trainers");
-        exit;
     }
+
 
     /**
      * @param $id
@@ -89,8 +89,6 @@ class TrainerController extends BaseController
      */
     public function update($id)
     {
-        $trainerModel = new Trainer();
-
         [$firstName, $lastName] = explode(' ', $_POST['name'] . ' ', 2);
 
         $data = [
@@ -99,24 +97,31 @@ class TrainerController extends BaseController
             'description' => $_POST['description'] ?? '',
         ];
 
-        // Traitement de l'upload de la photo
-        if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-            $photoTmpPath = $_FILES['photo']['tmp_name'];
-            $photoName = basename($_FILES['photo']['name']);
-            $destination = '../uploads/trainers/' . uniqid() . '_' . $photoName;
-            move_uploaded_file($photoTmpPath, $_SERVER['DOCUMENT_ROOT'] . $destination);
-            $data['photo'] = $destination;
+        // Chemin d'upload
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/trainers/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0775, true);
+        }
+
+        if (!empty($_FILES['photo']['name'])) {
+            $filename = uniqid() . '_' . basename($_FILES['photo']['name']);
+            $uploadPath = $uploadDir . $filename;
+
+            if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadPath)) {
+                $data['photo'] = '/uploads/trainers/' . $filename;
+            } else {
+                die("Erreur lors de la mise à jour de la photo.");
+            }
         } else {
-            // Facultatif : conserver l’ancienne photo si aucun fichier uploadé
-            $trainer = $trainerModel->find($id);
+            $trainer = $this->trainerModel->find($id);
             $data['photo'] = $trainer['photo'] ?? '';
         }
 
-        $trainerModel->update($id, $data);
-
+        $this->trainerModel->update($id, $data);
         header("Location: /admin/trainers");
         exit;
     }
+
 
     /**
      * @param $id

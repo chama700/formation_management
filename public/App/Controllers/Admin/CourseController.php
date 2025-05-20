@@ -32,7 +32,18 @@ class CourseController extends BaseController
      * @return void
      */
     public function index() {
-        $courses = $this->model->all();
+        // Récupération des filtres depuis la requête GET
+        $filter_id = $_GET['filter_id'] ?? '';
+        $filter_name = $_GET['filter_name'] ?? '';
+
+        // Vérifie si des filtres sont appliqués
+        if (!empty($filter_id) || !empty($filter_name)) {
+            $courses = $this->model->filterCourse($filter_id, $filter_name);
+        } else {
+            $courses = $this->model->all();
+        }
+
+        // Affiche la vue avec les résultats
         $this->view('admin/courses/index', ['courses' => $courses]);
     }
 
@@ -60,16 +71,24 @@ class CourseController extends BaseController
             'subject_id' => $_POST['subject_id']
         ];
 
-        if (!empty($_FILES['logo']['name'])) {
-            $filename = uniqid() . '_' . $_FILES['logo']['name'];
-            $destination = __DIR__ . '/../../../uploads/courses/' . $filename;
-            if (move_uploaded_file($_FILES['logo']['tmp_name'], $destination)) {
-                $data['logo'] = '/uploads/courses/' . $filename;
-            } else {
-                die("Erreur lors de l'upload du logo.");
-            }
+        // Chemin d'upload
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/courses/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0775, true);
         }
 
+        if (!empty($_FILES['logo']['name'])) {
+            $filename = uniqid() . '_' . basename($_FILES['logo']['name']);
+            $uploadPath = $uploadDir . $filename;
+
+            if (move_uploaded_file($_FILES['logo']['tmp_name'], $uploadPath)) {
+                $data['logo'] = '/uploads/courses/' . $filename; // Chemin web
+            } else {
+                die("Erreur lors de l'upload de la logo.");
+            }
+        } else {
+            $data['logo'] = ''; // ou une valeur par défaut
+        }
         $this->model->create($data);
         header('Location: /admin/courses');
         exit;
@@ -102,12 +121,24 @@ class CourseController extends BaseController
             'subject_id' => $_POST['subject_id']
         ];
 
+        // Chemin d'upload
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/courses/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0775, true);
+        }
+
         if (!empty($_FILES['logo']['name'])) {
-            $filename = uniqid() . '_' . $_FILES['logo']['name'];
-            $destination = __DIR__ . '/../../../uploads/courses/' . $filename;
-            if (move_uploaded_file($_FILES['logo']['tmp_name'], $destination)) {
+            $filename = uniqid() . '_' . basename($_FILES['logo']['name']);
+            $uploadPath = $uploadDir . $filename;
+
+            if (move_uploaded_file($_FILES['logo']['tmp_name'], $uploadPath)) {
                 $data['logo'] = '/uploads/courses/' . $filename;
+            } else {
+                die("Erreur lors de la mise à jour de la photo.");
             }
+        } else {
+            $trainer = $this->model->find($id);
+            $data['logo'] = $trainer['photo'] ?? '';
         }
 
         $this->model->update($id, $data);

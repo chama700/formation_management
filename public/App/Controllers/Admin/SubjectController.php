@@ -48,7 +48,7 @@ class SubjectController extends BaseController
      */
     public function create()
     {
-        $domaines = $this->domaineModel->getAll();
+        $domaines = $this->domaineModel->all();
 
         $this->view('admin/subjects/create',['domaines' => $domaines]);
     }
@@ -93,7 +93,7 @@ class SubjectController extends BaseController
      */
     public function edit($id) {
         $subject = $this->model->find($id);
-        $domains = $this->domaineModel->getall(); // ou Domain::all()
+        $domains = $this->domaineModel->all(); // ou Domain::all()
         $this->view('admin/subjects/edit', ['subject' => $subject, 'domains' => $domains]);
     }
 
