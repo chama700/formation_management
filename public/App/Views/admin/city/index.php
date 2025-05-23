@@ -20,36 +20,59 @@
 
     <!-- Filter form -->
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-        <form action="/admin/city" method="GET" class="flex space-x-6 flex-wrap">
+        <form action="/admin/city" method="GET" class="flex space-x-4 flex-wrap items-center">
+
             <div class="flex items-center space-x-2">
-                <label for="filter_id" class="text-lg">Filter by ID:</label>
+                <label for="filter_id" class="text-lg whitespace-nowrap">ID :</label>
                 <input type="text" id="filter_id" name="filter_id"
                        value="<?= htmlspecialchars($_GET['filter_id'] ?? '') ?>"
-                       placeholder="City ID"
-                       class="border border-gray-300 rounded-lg px-4 py-2 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                       placeholder="ID ville"
+                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-24 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div class="flex items-center space-x-2">
-                <label for="filter_name" class="text-lg">Filter by Name:</label>
+                <label for="filter_name" class="text-lg whitespace-nowrap">Nom :</label>
                 <input type="text" id="filter_name" name="filter_name"
                        value="<?= htmlspecialchars($_GET['filter_name'] ?? '') ?>"
-                       placeholder="City name"
-                       class="border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                       placeholder="Nom ville"
+                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
-            <button type="submit"
-                    class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
-                Apply
-            </button>
+            <div class="flex items-center space-x-2">
+                <label for="filter_country_id" class="text-lg whitespace-nowrap">Pays ID :</label>
+                <input type="text" id="filter_country_id" name="filter_country_id"
+                       value="<?= htmlspecialchars($_GET['filter_country_id'] ?? '') ?>"
+                       placeholder="ID pays"
+                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-24 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <label for="filter_country_name" class="text-lg whitespace-nowrap">Nom Pays :</label>
+                <input type="text" id="filter_country_name" name="filter_country_name"
+                       value="<?= htmlspecialchars($_GET['filter_country_name'] ?? '') ?>"
+                       placeholder="Nom pays"
+                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button type="submit"
+                        class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Appliquer filtres
+                </button>
+                <a href="/admin/city"
+                   class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Effacer les filtres
+                </a>
+            </div>
         </form>
     </div>
 
-    <h1 class="text-3xl font-bold text-center mb-6">City List</h1>
+    <h1 class="text-3xl font-bold text-center mb-6">List des Villes</h1>
 
     <div class="text-right mb-4">
         <a href="/admin/city/create"
            class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
-            + Add a City
+            + Ajouter Ville
         </a>
     </div>
 
@@ -58,9 +81,9 @@
             <thead class="bg-gray-200 text-gray-700">
             <tr>
                 <th class="py-2 px-4 text-left">ID</th>
-                <th class="py-2 px-4 text-left">City Name</th>
-                <th class="py-2 px-4 text-left">Country ID</th>
-                <th class="py-2 px-4 text-left">Country Name</th>
+                <th class="py-2 px-4 text-left">Nom des Villes</th>
+                <th class="py-2 px-4 text-left">ID_pays</th>
+                <th class="py-2 px-4 text-left">Nom des Pays</th>
                 <th class="py-2 px-4 text-left">Actions</th>
             </tr>
             </thead>
