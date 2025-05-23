@@ -1,5 +1,6 @@
 <!-- views/admin/subject/index.php -->
 <div class="container mx-auto p-6">
+    <h1 class="text-4xl font-bold text-center mb-10 text-blue-700">Liste des matières</h1>
     <!-- Formulaire de filtrage -->
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
         <form action="/admin/subjects" method="GET" class="flex space-x-6">
@@ -18,39 +19,39 @@
             </button>
         </form>
     </div>
-    <h1 class="text-3xl font-bold mb-6">Liste des matières</h1>
 
     <div class="text-right mb-4">
-        <a href="/admin/subjects/create" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Ajouter une matière</a>
+        <a href="/admin/subjects/create" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition shadow">+ Ajouter une matière</a>
     </div>
-
-    <table class="min-w-full bg-white shadow-md rounded-lg">
-        <thead class="bg-gray-200">
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full table-auto">
+            <thead class="bg-gray-200 text-gray-700">
         <tr>
-            <th class="px-4 py-2">Nom</th>
-            <th class="px-4 py-2">Description courte</th>
-            <th class="px-4 py-2">Logo</th>
-            <th class="px-4 py-2">Domaine</th>
-            <th class="px-4 py-2">Actions</th>
+            <th class="py-2 px-4 text-left">Nom</th>
+            <th class="py-2 px-4 text-left">Description courte</th>
+            <th class="py-2 px-4 text-left">Logo</th>
+            <th class="py-2 px-4 text-left">Domaine</th>
+            <th class="py-2 px-4 text-left">Actions</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($subjects as $subject): ?>
             <tr class="border-t">
-                <td class="px-4 py-2"><?php echo htmlspecialchars($subject['name']); ?></td>
-                <td class="px-4 py-2"><?php echo htmlspecialchars($subject['shortDescription']); ?></td>
-                <td class="px-4 py-2">
+                <td class="py-2 px-4"><?php echo htmlspecialchars($subject['name']); ?></td>
+                <td class="py-2 px-4"><?php echo htmlspecialchars($subject['shortDescription']); ?></td>
+                <td class="py-2 px-4">
                     <?php if ($subject['logo']): ?>
                         <img src="<?php echo $subject['logo']; ?>" alt="logo" class="h-10">
                     <?php endif; ?>
                 </td>
-                <td class="px-4 py-2"><?php echo htmlspecialchars($subject['domain_name']); ?></td>
-                <td class="px-4 py-2">
+                <td class="py-2 px-4"><?php echo htmlspecialchars($subject['domain_name']); ?></td>
+                <td class="py-2 px-4">
                     <a href="/admin/subjects/edit/<?php echo $subject['id']; ?>" class="text-blue-500 hover:underline">Modifier</a>
                     <a href="/admin/subjects/delete/<?php echo $subject['id']; ?>" class="text-red-500 hover:underline ml-4" onclick="return confirm('Confirmer la suppression ?')">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
-    </table>
+        </table>
+    </div>
 </div>

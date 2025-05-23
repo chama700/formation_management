@@ -21,7 +21,7 @@ class CourseController extends BaseController
     private Subject $subjectModel;
 
     /**
-     *
+     * construct method
      */
     public function __construct() {
         $this->model = new Course();
@@ -32,20 +32,24 @@ class CourseController extends BaseController
      * @return void
      */
     public function index() {
-        // Récupération des filtres depuis la requête GET
-        $filter_id = $_GET['filter_id'] ?? '';
-        $filter_name = $_GET['filter_name'] ?? '';
+        $filters = [
+            'id' => $_GET['filter_id'] ?? '',
+            'name' => $_GET['filter_name'] ?? '',
+            'content' => $_GET['filter_content'] ?? '',
+            'description' => $_GET['filter_description'] ?? '',
+            'audience' => $_GET['filter_audience'] ?? '',
+            'duration' => $_GET['filter_duration'] ?? '',
+            'testIncluded' => $_GET['filter_testIncluded'] ?? '',
+            'testContent' => $_GET['filter_testContent'] ?? '',
+            'subject_id' => $_GET['filter_subject_id'] ?? '',
+        ];
 
-        // Vérifie si des filtres sont appliqués
-        if (!empty($filter_id) || !empty($filter_name)) {
-            $courses = $this->model->filterCourse($filter_id, $filter_name);
-        } else {
-            $courses = $this->model->all();
-        }
+        $subjects = $this->subjectModel->all(); // pour liste déroulante dans le filtre
 
-        // Affiche la vue avec les résultats
-        $this->view('admin/courses/index', ['courses' => $courses]);
+        $courses = $this->model->filterCourses($filters);
+        $this->view('admin/courses/index', ['courses' => $courses, 'subjects' => $subjects]);
     }
+
 
     /**
      * @return void
@@ -146,6 +150,10 @@ class CourseController extends BaseController
         exit;
     }
 
+    /**
+     * @param $id
+     * @return void
+     */
     public function delete($id) {
         $this->model->delete($id);
         header('Location: /admin/courses');

@@ -14,7 +14,7 @@ class Course
     private PDO $db;
 
     /**
-     *
+     * Construct method
      */
     public function __construct() {
         $this->db = Database::getInstance();
@@ -28,27 +28,43 @@ class Course
         return $stmt->fetchAll();
     }
 
-    public function filterCourse($filter_id, $filter_name) {
-        $query = "SELECT * FROM courses WHERE 1=1";
+    /**
+     * @param array $filters
+     * @return array
+     */
+    public function filterCourses(array $filters) {
+        $query = "SELECT courses.*, subjects.name AS subject_name FROM courses 
+              JOIN subjects ON courses.subject_id = subjects.id WHERE 1=1";
+        $params = [];
 
-        if ($filter_id) {
-            $query .= " AND id LIKE :filter_id";
+        foreach ([
+                     'id' => 'id',
+                     'name' => 'name',
+                     'content' => 'content',
+                     'description' => 'description',
+                     'audience' => 'audience',
+                     'duration' => 'duration',
+                     'testIncluded' => 'testIncluded',
+                     'testContent' => 'testContent',
+                     'subject_id' => 'subject_id'
+                 ] as $field => $dbField) {
+            if (!empty($filters[$field])) {
+                if ($field === 'subject_id') {
+                    $query .= " AND courses.subject_id = :$field";
+                    $params[":$field"] = $filters[$field];
+                } else {
+                    $query .= " AND courses.$dbField LIKE :$field";
+                    $params[":$field"] = "%" . $filters[$field] . "%";
+                }
+            }
         }
-        if ($filter_name) {
-            $query .= " AND name LIKE :filter_name";
-        }
+
         $stmt = $this->db->prepare($query);
-
-        if ($filter_id) {
-            $stmt->bindValue(':filter_id', '%' . $filter_id . '%');
-        }
-        if ($filter_name) {
-            $stmt->bindValue(':filter_name', '%' . $filter_name . '%');
-        }
-        $stmt->execute();
+        $stmt->execute($params);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
     /**
      * @param $id
      * @return mixed

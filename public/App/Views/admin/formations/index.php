@@ -8,7 +8,7 @@
 
     h1 {
         font-size: 28px;
-        color: #2c3e50;
+        color: rgba(22, 94, 249, 0.93);
         margin-bottom: 30px;
     }
 
@@ -131,7 +131,7 @@
     }
 </style>
 
-
+<h1>Liste des formations</h1>
 <!-- Formulaire de filtre -->
 <form method="GET" class="filter-form">
     <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end;">
@@ -191,7 +191,6 @@
     </div>
 </form>
 
-<h1>Liste des formations</h1>
 <a href="/admin/formations/create" class="btn">Ajouter une formation</a>
 
 <table>

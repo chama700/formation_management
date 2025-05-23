@@ -18,6 +18,8 @@
 <body class="bg-gray-100 font-sans">
 <div class="container mx-auto p-6">
 
+    <h1 class="text-4xl font-bold text-center mb-10 text-blue-700">List des Villes</h1>
+
     <!-- Filter form -->
     <div class="bg-white p-4 rounded-lg shadow-md mb-6">
         <form action="/admin/city" method="GET" class="flex space-x-4 flex-wrap items-center">
@@ -67,11 +69,9 @@
         </form>
     </div>
 
-    <h1 class="text-3xl font-bold text-center mb-6">List des Villes</h1>
-
     <div class="text-right mb-4">
         <a href="/admin/city/create"
-           class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+           class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition shadow">
             + Ajouter Ville
         </a>
     </div>
