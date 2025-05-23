@@ -187,6 +187,7 @@
 
         <div>
             <button type="submit" class="btn">Filtrer</button>
+            <a href="/admin/formations" class="btn">Effacer les filtres</a>
         </div>
     </div>
 </form>

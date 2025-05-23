@@ -30,17 +30,22 @@
                 <label for="filter_name" class="text-lg">Filtrer par nom :</label>
                 <input type="text" id="filter_name" name="filter_name" value="<?php echo isset($_GET['filter_name']) ? htmlspecialchars($_GET['filter_name']) : ''; ?>" placeholder="Nom du domaine" class="border border-gray-300 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-
-            <button type="submit" class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
-                Appliquer
-            </button>
+            <div class="flex items-end space-x-4">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-7 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Appliquer
+                </button>
+                <a href="/admin/domaines"
+                   class="bg-blue-500 text-white py-2 px-7 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Effacer les filtres
+                </a>
+            </div>
         </form>
     </div>
 
     <h1 class="text-3xl font-bold text-center mb-6">Liste des domaines</h1>
 
     <div class="text-right mb-4">
-        <a href="/admin/domaines/create" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Ajouter un domaine</a>
+        <a href="/admin/domaines/create" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition shadow">+ Ajouter un domaine</a>
     </div>
 
     <div class="overflow-x-auto bg-white shadow-md rounded-lg">
