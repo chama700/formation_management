@@ -4,6 +4,10 @@ Une application web complète de gestion de formations, développée en PHP (MVC
 
 ---
 
+![Screenshot](screenshots/banner-home.png)
+
+---
+
 ## 📌 Auteur
 
 chaymae belamkadem
@@ -52,6 +56,8 @@ docker-compose up -d
 
 - User: root
 - Password: root
+
+![Screenshot](screenshots/phpmyadmin.png)
 
 ## 📂 Sommaire
 
