@@ -3,128 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FormExpert - Nos Formations</title>
+    <title>Moodle - Nos Formations</title>
     <link rel="stylesheet" href="../../../../css/formations.css" />
+    <link rel="stylesheet" href="../../../../css/styles.css" />
 </head>
 <body>
-<section class="page-header">
-    <div class="container">
-        <h1>Nos Programmes de Formation</h1>
-        <p>Découvrez notre gamme complète de cours de formation professionnelle conçus pour améliorer vos compétences et booster votre carrière.</p>
-    </div>
-</section>
 
 <section class="section">
     <div class="container">
-        <div class="search-filters">
-            <h2>Trouvez votre cours idéal</h2>
-            <form id="filter-form">
-                <div class="filter-group">
 
-                    <div class="filter-item">
-                        <label for="domain">Domaine</label>
-                        <select id="domain" name="domain">
-                            <option value="">Tous les domaines</option>
-                            <?php foreach ($domains as $domain): ?>
-                                <option value="<?= htmlspecialchars($domain['id']) ?>"
-                                    <?= (isset($filters['domain_id']) && $filters['domain_id'] == $domain['id']) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($domain['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+        <section class="course-search">
+            <div class="container">
+                <h2 class="section-title">Explorez Nos Formations</h2>
+                <p class="section-subtitle">Trouvez facilement la formation qui correspond à vos besoins et vos objectifs professionnels.</p>
 
-                    <div class="filter-item">
-                        <label for="subject">Sujet</label>
-                        <select id="subject" name="subject">
-                            <option value="">Tous les sujets</option>
-                            <?php foreach ($subjects as $subject): ?>
-                                <option value="<?= htmlspecialchars($subject['id']) ?>"
-                                    <?= (isset($filters['subject_id']) && $filters['subject_id'] == $subject['id']) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($subject['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="filter-item">
-                        <label for="course">Cours</label>
-                        <select id="course" name="course">
-                            <option value="">Tous les cours</option>
-                            <?php foreach ($courses as $course): ?>
-                                <option value="<?= htmlspecialchars($course['id']) ?>"
-                                    <?= (isset($filters['course_id']) && $filters['course_id'] == $course['id']) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($course['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="filter-group">
-                    <div class="filter-item">
-                        <label for="city_id">Lieu</label>
-                        <select id="city_id" name="city_id">
-                            <option value="">Tous les lieux</option>
-                            <?php foreach ($cities as $city): ?>
-                                <option value="<?= htmlspecialchars($city['id']) ?>"
-                                    <?= (isset($filters['city_id']) && $filters['city_id'] == $city['id']) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($city['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="filter-actions">
-                    <button type="reset" class="btn btn-secondary">Réinitialiser</button>
-                    <button type="submit" class="btn">Rechercher des cours</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="formation-grid">
-            <?php foreach ($formations as $formation): ?>
-                <div class="formation-card" data-domain-id="<?= htmlspecialchars($formation['domain_id']) ?>"
-                     data-subject-id="<?= htmlspecialchars($formation['subject_id']) ?>"
-                     data-course-id="<?= htmlspecialchars($formation['course_id']) ?>">
-                    <div class="formation-image">
-                        <img src="<?= htmlspecialchars($formation['subject_logo']) ?>" alt="<?= htmlspecialchars($formation['course_name']) ?>">
-                    </div>
-                    <div class="formation-content">
-                        <h3 class="formation-title"><?= htmlspecialchars($formation['title'] ?? $formation['course_name']) ?></h3>
-                        <div class="formation-meta">
-                            <span class="formation-domain"><strong>Domaine :</strong> <?= htmlspecialchars($formation['domain_name']) ?></span><br>
-                            <span class="formation-subject"><strong>Sujet :</strong> <?= htmlspecialchars($formation['subject_name']) ?></span>
+                <form id="filter-form" class="search-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="domain">Thématique</label>
+                            <select id="domain" name="domain">
+                                <option value="">Toutes les thématiques</option>
+                                <?php foreach ($domains as $domain): ?>
+                                    <option value="<?= htmlspecialchars($domain['id']) ?>"
+                                        <?= (isset($filters['domain_id']) && $filters['domain_id'] == $domain['id']) ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($domain['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                        <div class="formation-details">
-                            <div class="formation-detail" data-city-id="<?= htmlspecialchars($formation['city_id']) ?>">
-                                <span class="formation-detail-icon">📍</span>
-                                <span><?= htmlspecialchars($formation['city_name']) ?></span>
-                            </div>
-                            <div class="formation-detail">
-                                <span class="formation-detail-icon">📅</span>
-                                <span><?= htmlspecialchars($formation['start_date'] ?? 'À déterminer') ?></span>
-                            </div>
-                            <div class="formation-detail">
-                                <span class="formation-detail-icon">👨‍🏫</span>
-                                <span><?= htmlspecialchars($formation['trainer_name']) ?></span>
-                            </div>
-                            <div class="formation-detail">
-                                <span class="formation-detail-icon"><?= $formation['mode'] === 'online' ? '🖥️' : '🏢' ?></span>
-                                <span><?= $formation['mode'] === 'online' ? 'En ligne' : 'Sur site' ?></span>
-                            </div>
+
+                        <div class="form-group">
+                            <label for="subject">Spécialité</label>
+                            <select id="subject" name="subject">
+                                <option value="">Toutes les spécialités</option>
+                                <?php foreach ($subjects as $subject): ?>
+                                    <option value="<?= htmlspecialchars($subject['id']) ?>"
+                                        <?= (isset($filters['subject_id']) && $filters['subject_id'] == $subject['id']) ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($subject['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                        <div class="formation-actions">
-                            <span class="formation-price">€<?= htmlspecialchars($formation['price']) ?></span>
-                            <a href="registration/index/<?= $formation['id'] ?>" class="btn">S'inscrire</a>
+
+                        <div class="form-group">
+                            <label for="course">Formation</label>
+                            <select id="course" name="course">
+                                <option value="">Toutes les formations</option>
+                                <?php foreach ($courses as $course): ?>
+                                    <option value="<?= htmlspecialchars($course['id']) ?>"
+                                        <?= (isset($filters['course_id']) && $filters['course_id'] == $course['id']) ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($course['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city_id">Lieu</label>
+                            <select id="city_id" name="city_id">
+                                <option value="">Tous les lieux</option>
+                                <?php foreach ($cities as $city): ?>
+                                    <option value="<?= htmlspecialchars($city['id']) ?>"
+                                        <?= (isset($filters['city_id']) && $filters['city_id'] == $city['id']) ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($city['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
+
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-outline">Réinitialiser</button>
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="section formation-section">
+            <div class="container">
+                <div class="formation-grid">
+                    <?php foreach ($formations as $formation): ?>
+                        <div class="formation-card"
+                             data-domain-id="<?= htmlspecialchars($formation['domain_id']) ?>"
+                             data-subject-id="<?= htmlspecialchars($formation['subject_id']) ?>"
+                             data-course-id="<?= htmlspecialchars($formation['course_id']) ?>"
+                             data-city-id="<?= htmlspecialchars($formation['city_id']) ?>">
+
+                            <div class="formation-card-header">
+                                <img src="<?= htmlspecialchars($formation['courses_logo']) ?>"
+                                     alt="<?= htmlspecialchars($formation['course_name']) ?>"
+                                     class="formation-logo">
+                            </div>
+
+                            <div class="formation-card-body">
+                                <h3 class="formation-title"><?= htmlspecialchars($formation['title'] ?? $formation['course_name']) ?></h3>
+
+                                <ul class="formation-meta">
+                                    <li><strong>Domaine :</strong> <?= htmlspecialchars($formation['domain_name']) ?></li>
+                                    <li><strong>Sujet :</strong> <?= htmlspecialchars($formation['subject_name']) ?></li>
+                                </ul>
+
+                                <ul class="formation-details">
+                                    <li><span class="icon">📍</span> <?= htmlspecialchars($formation['city_name']) ?></li>
+                                    <li><span class="icon">📅</span> <?= htmlspecialchars($formation['start_date'] ?? 'À déterminer') ?></li>
+                                    <li><span class="icon">👨‍🏫</span> <?= htmlspecialchars($formation['trainer_name']) ?></li>
+                                    <li>
+                                        <span class="icon"><?= $formation['mode'] === 'online' ? '🖥️' : '🏢' ?></span>
+                                        <?= $formation['mode'] === 'online' ? 'En ligne' : 'Sur site' ?>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="formation-card-footer">
+                                <span class="formation-price">€<?= htmlspecialchars($formation['price']) ?></span>
+                                <a href="registration/index/<?= $formation['id'] ?>" class="btn btn-primary">S'inscrire</a>
+                            </div>
+
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
+            </div>
+        </section>
 </section>
 
 <script>
@@ -147,7 +147,7 @@
             const selectedCourse = courseSelect.value;
 
             formationCards.forEach(card => {
-                const cityId = card.querySelector('[data-city-id]')?.getAttribute('data-city-id');
+                const cityId = card.getAttribute('data-city-id');
                 const domainId = card.getAttribute('data-domain-id');
                 const subjectId = card.getAttribute('data-subject-id');
                 const courseId = card.getAttribute('data-course-id');

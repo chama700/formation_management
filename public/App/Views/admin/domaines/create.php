@@ -1,67 +1,28 @@
-<!-- Style CSS -->
-<style>
-    .admin-form-container {
-        max-width: 500px;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        font-family: Arial, sans-serif;
-        margin-bottom: 40px;
-    }
+<!-- views/admin/domaines/create.php -->
+<div class="admin-form-container max-w-4xl mx-auto rounded-lg p-8 mt-12 font-sans">
+    <h1 class="text-3xl font-bold mb-8 text-[#005a9c] text-center">Ajouter un domaine</h1>
 
-    .admin-form-container h2 {
-        font-size: 22px;
-        margin-bottom: 20px;
-        color: #333;
-    }
+    <form action="/admin/domaines/store" method="post" enctype="multipart/form-data"
+          class="bg-[#F0F0F0] p-8 rounded-2xl shadow-lg space-y-6 max-w-4xl">
 
-    .admin-form-container label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: bold;
-    }
-
-    .admin-form-container input[type="text"] {
-        width: 100%;
-        padding: 8px 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
-
-    .admin-form-container button {
-        padding: 10px 18px;
-        background-color: #4c6ef5;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .admin-form-container button:hover {
-        background-color: #3b5bdb;
-    }
-</style>
-
-<!-- Formulaire HTML -->
-<div class="admin-form-container">
-    <h2>Ajouter un domaine </h2>
-    <form action="/admin/domaines/store" method="POST">
-        <div class="mb-4">
-            <input type="text" name="name" placeholder="Nom du domaine" required
-                   class="w-full p-2 border border-gray-300 rounded">
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Nom du domaine *</label>
+            <input name="name" type="text" placeholder="Nom du domaine" required
+                   class="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F98012]">
         </div>
-        <div class="mb-4">
-            <input type="text" name="description" placeholder="Description" required
-                   class="w-full p-2 border border-gray-300 rounded">
+
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Description *</label>
+            <textarea name="description" rows="3" placeholder="Description du domaine" required
+                      class="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F98012]"></textarea>
         </div>
-        <button type="submit" name="ajouter"
-                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Ajouter
-        </button>
+
+        <div class="text-right pt-4">
+            <button type="submit"
+                    class="bg-[#F98012] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#e26f05] transition duration-300">
+                Ajouter
+            </button>
+            <a href="/admin/domaines" class="ml-4 text-sm text-[#005a9c] hover:underline">Annuler</a>
+        </div>
     </form>
 </div>

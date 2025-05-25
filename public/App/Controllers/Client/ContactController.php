@@ -9,7 +9,7 @@ class ContactController extends BaseControllerFrontend
 {
     public function index() {
         $this->view('client/contact/index', [
-            'title' => 'FormExpert - Contact',
+            'title' => 'Moodle - Contact',
         ]);
     }
 

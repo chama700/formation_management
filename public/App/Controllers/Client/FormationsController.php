@@ -20,7 +20,7 @@ class FormationsController extends BaseControllerFrontend
         $cities = $this->getCities();
 
         $this->view('client/formations/index', [
-            'title' => 'FormExpert - Formations',
+            'title' => 'Moodle - Formations',
             'formations' => $formations,
             'domains' => $domains,
             'subjects' => $subjects,

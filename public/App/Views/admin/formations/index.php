@@ -1,157 +1,47 @@
-<style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        padding: 40px;
-        background-color: #f4f6f8;
-        color: #333;
-    }
+<main class="p-8">
+<header class="mb-8">
+    <h1 class="text-5xl font-extrabold text-center text-text-[#0055CC]">
+        Liste des formations
+    </h1>
+    <p class="text-center mt-2 text-lg text-[var(--moodle-gray-dark)]">
+        Tableau de bord pour gérer vos formations enregistrées
+    </p>
+</header>
+<!-- Filter Form -->
+<form method="GET" class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <div class="flex flex-wrap gap-4 items-end">
 
-    h1 {
-        font-size: 28px;
-        color: rgba(22, 94, 249, 0.93);
-        margin-bottom: 30px;
-    }
-
-    .btn {
-        display: inline-block;
-        background: linear-gradient(to right, #007bff, #0056b3);
-        color: white;
-        padding: 12px 20px;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.2);
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: #fff;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    th, td {
-        padding: 16px 20px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f0f3f5;
-        color: #34495e;
-        font-size: 15px;
-        font-weight: 600;
-    }
-
-    td {
-        border-top: 1px solid #e8eaf0;
-        font-size: 14px;
-    }
-
-    tr:hover {
-        background-color: #f9fbfd;
-    }
-
-    td a {
-        color: #e74c3c;
-        text-decoration: none;
-        font-weight: 500;
-    }
-
-    td a:hover {
-        text-decoration: underline;
-    }
-
-    @media screen and (max-width: 768px) {
-        table, thead, tbody, th, td, tr {
-            display: block;
-        }
-
-        tr {
-            background-color: #fff;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        th, td {
-            text-align: right;
-            padding-left: 50%;
-            position: relative;
-        }
-
-        th::before, td::before {
-            position: absolute;
-            left: 20px;
-            width: 45%;
-            white-space: nowrap;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        th:nth-of-type(1)::before,
-        td:nth-of-type(1)::before { content: "Prix"; }
-        th:nth-of-type(2)::before,
-        td:nth-of-type(2)::before { content: "Mode"; }
-        th:nth-of-type(3)::before,
-        td:nth-of-type(3)::before { content: "Cours"; }
-        th:nth-of-type(4)::before,
-        td:nth-of-type(4)::before { content: "Ville"; }
-        th:nth-of-type(5)::before,
-        td:nth-of-type(5)::before { content: "Formateur"; }
-        th:nth-of-type(6)::before,
-        td:nth-of-type(6)::before { content: "Actions"; }
-    }
-    .filter-form {
-        margin: 20px 0;
-        background: #ffffff;
-        padding: 25px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .filter-form div label {
-        font-weight: 600;
-        color: #2c3e50;
-    }
-
-    .filter-form input,
-    .filter-form select {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        background-color: #f8f9fa;
-        width: 160px;
-    }
-</style>
-
-<h1>Liste des formations</h1>
-<!-- Formulaire de filtre -->
-<form method="GET" class="filter-form">
-    <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end;">
-        <div>
-            <label for="filter_price">Prix</label><br>
-            <input type="number" name="filter_price" id="filter_price" value="<?= $_GET['filter_price'] ?? '' ?>" style="padding: 8px; width: 120px;">
+        <div class="flex flex-col">
+            <label for="filter_price" class="font-semibold text-[var(--moodle-gray-dark)] mb-1">Prix</label>
+            <input
+                    type="number"
+                    name="filter_price"
+                    id="filter_price"
+                    value="<?= $_GET['filter_price'] ?? '' ?>"
+                    class="w-32 px-3 py-2 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--moodle-blue)]"
+            >
         </div>
 
-        <div>
-            <label for="filter_mode">Mode</label><br>
-            <select name="filter_mode" id="filter_mode" style="padding: 8px;">
+        <div class="flex flex-col">
+            <label for="filter_mode" class="font-semibold text-[var(--moodle-gray-dark)] mb-1">Mode</label>
+            <select
+                    name="filter_mode"
+                    id="filter_mode"
+                    class="px-3 py-2 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--moodle-blue)]"
+            >
                 <option value="">Tous</option>
                 <option value="présentiel" <?= ($_GET['filter_mode'] ?? '') === 'présentiel' ? 'selected' : '' ?>>Présentiel</option>
                 <option value="distanciel" <?= ($_GET['filter_mode'] ?? '') === 'distanciel' ? 'selected' : '' ?>>Distanciel</option>
             </select>
         </div>
 
-        <div>
-            <label for="filter_course_id">Cours</label><br>
-            <select name="filter_course_id" id="filter_course_id" style="padding: 8px;">
+        <div class="flex flex-col">
+            <label for="filter_course_id" class="font-semibold text-[var(--moodle-gray-dark)] mb-1">Cours</label>
+            <select
+                    name="filter_course_id"
+                    id="filter_course_id"
+                    class="px-3 py-2 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--moodle-blue)]"
+            >
                 <option value="">Tous</option>
                 <?php foreach ($courses as $course): ?>
                     <option value="<?= $course['id'] ?>" <?= ($_GET['filter_course_id'] ?? '') == $course['id'] ? 'selected' : '' ?>>
@@ -161,9 +51,13 @@
             </select>
         </div>
 
-        <div>
-            <label for="filter_city_id">Ville</label><br>
-            <select name="filter_city_id" id="filter_city_id" style="padding: 8px;">
+        <div class="flex flex-col">
+            <label for="filter_city_id" class="font-semibold text-[var(--moodle-gray-dark)] mb-1">Ville</label>
+            <select
+                    name="filter_city_id"
+                    id="filter_city_id"
+                    class="px-3 py-2 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--moodle-blue)]"
+            >
                 <option value="">Toutes</option>
                 <?php foreach ($cities as $city): ?>
                     <option value="<?= $city['id'] ?>" <?= ($_GET['filter_city_id'] ?? '') == $city['id'] ? 'selected' : '' ?>>
@@ -173,9 +67,13 @@
             </select>
         </div>
 
-        <div>
-            <label for="filter_trainer_id">Formateur</label><br>
-            <select name="filter_trainer_id" id="filter_trainer_id" style="padding: 8px;">
+        <div class="flex flex-col">
+            <label for="filter_trainer_id" class="font-semibold text-[var(--moodle-gray-dark)] mb-1">Formateur</label>
+            <select
+                    name="filter_trainer_id"
+                    id="filter_trainer_id"
+                    class="px-3 py-2 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--moodle-blue)]"
+            >
                 <option value="">Tous</option>
                 <?php foreach ($trainers as $trainer): ?>
                     <option value="<?= $trainer['id'] ?>" <?= ($_GET['filter_trainer_id'] ?? '') == $trainer['id'] ? 'selected' : '' ?>>
@@ -185,38 +83,98 @@
             </select>
         </div>
 
-        <div>
-            <button type="submit" class="btn">Filtrer</button>
-            <a href="/admin/formations" class="btn">Effacer les filtres</a>
+        <div class="flex space-x-3">
+            <button type="submit" class="bg-[var(--moodle-light-blue)] hover:bg-[var(--moodle-blue)] text-white px-5 py-2 rounded-lg font-medium transition-shadow shadow-md hover:shadow-lg">
+                Filtrer
+            </button>
+            <a href="/admin/formations" class="bg-[var(--moodle-orange)] hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-medium transition-shadow shadow-md hover:shadow-lg">
+                Effacer les filtres
+            </a>
         </div>
+
     </div>
 </form>
 
-<a href="/admin/formations/create" class="btn">Ajouter une formation</a>
+<a href="/admin/formations/create" class="inline-block mb-6 bg-[var(--moodle-blue)] hover:bg-[var(--moodle-light-blue)] text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+    Ajouter une formation
+</a>
 
-<table>
-    <thead>
+<table class="min-w-full bg-white rounded-lg overflow-hidden shadow-md">
+    <thead class="bg-gray-100 text-[var(--moodle-gray-dark)] text-left text-sm font-semibold">
     <tr>
-        <th>Prix</th>
-        <th>Mode</th>
-        <th>Cours</th>
-        <th>Ville</th>
-        <th>Formateur</th>
-        <th>Actions</th>
+        <th class="p-4">Prix</th>
+        <th class="p-4">Mode</th>
+        <th class="p-4">Cours</th>
+        <th class="p-4">Ville</th>
+        <th class="p-4">Formateur</th>
+        <th class="p-4">Actions</th>
     </tr>
     </thead>
     <tbody>
     <?php foreach ($formations as $formation): ?>
-        <tr>
-            <td><?= $formation['price'] ?> €</td>
-            <td><?= ucfirst($formation['mode']) ?></td>
-            <td><?= htmlspecialchars($formation['course_name']) ?></td>
-            <td><?= htmlspecialchars($formation['city_name']) ?></td>
-            <td><?= htmlspecialchars($formation['trainer_name']) ?></td>
-            <td>
-                <a href="/admin/formations/delete/<?= $formation['id'] ?>" onclick="return confirm('Supprimer ?')">Supprimer</a>
+        <tr class="hover:bg-gray-50 border-t border-gray-200 text-sm">
+            <td class="p-4"><?= $formation['price'] ?> €</td>
+            <td class="p-4"><?= ucfirst($formation['mode']) ?></td>
+            <td class="p-4"><?= htmlspecialchars($formation['course_name']) ?></td>
+            <td class="p-4"><?= htmlspecialchars($formation['city_name']) ?></td>
+            <td class="p-4"><?= htmlspecialchars($formation['trainer_name']) ?></td>
+            <td class="p-4">
+                <a
+                        href="/admin/formations/delete/<?= $formation['id'] ?>"
+                        onclick="return confirm('Supprimer ?')"
+                        class="text-red-600 hover:underline font-medium"
+                >
+                    Supprimer
+                </a>
             </td>
         </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
+</main>
+
+<!-- Responsive table for mobile -->
+<style>
+    @media (max-width: 768px) {
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+        thead tr {
+            display: none;
+        }
+        tr {
+            margin-bottom: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+        }
+        td {
+            position: relative;
+            padding-left: 50%;
+            text-align: left;
+            border-top: none !important;
+            font-size: 14px;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        td::before {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45%;
+            white-space: nowrap;
+            font-weight: 600;
+            color: var(--moodle-gray-dark);
+        }
+        td:nth-of-type(1)::before { content: "Prix"; }
+        td:nth-of-type(2)::before { content: "Mode"; }
+        td:nth-of-type(3)::before { content: "Cours"; }
+        td:nth-of-type(4)::before { content: "Ville"; }
+        td:nth-of-type(5)::before { content: "Formateur"; }
+        td:nth-of-type(6)::before { content: "Actions"; }
+    }
+</style>
+
+</body>

@@ -70,7 +70,7 @@ class CityController extends BaseController
      * @return void
      */
     public function update($id) {
-        $this->cityModel->update($id, $_POST['name']);
+        $this->cityModel->update((int)$id, $_POST['name']);
         header('Location: /admin/city/index');
     }
 
@@ -79,7 +79,7 @@ class CityController extends BaseController
      * @return void
      */
     public function delete($id) {
-        $this->cityModel->delete($id);
+        $this->cityModel->delete((int)$id);
         header('Location: /admin/city/index');
     }
 }

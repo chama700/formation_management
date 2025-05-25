@@ -1,8 +1,19 @@
-# Project Setup
+# 📚 Formation Management Web Application
+
+Une application web complète de gestion de formations, développée en PHP (MVC), avec une interface utilisateur en **Tailwind CSS** et une architecture conteneurisée avec **Docker**.
+
+---
+
+## 📌 Auteur
+
+chaymae belamkadem
+
+---
+
 ## Step 1: Create a Project Folder
 
-- mkdir web_application
-- cd web_application/
+- mkdir formation_management
+- cd formation_management/
   
 ## Step 2: Create the docker-compose.yml file
 
@@ -42,6 +53,175 @@ docker-compose up -d
 - User: root
 - Password: root
 
+## 📂 Sommaire
+
+- [Présentation](#présentation)
+- [Frontend - Côté Client](#frontend---côté-client)
+    - [Home Page](#home-page)
+    - [Page Formations](#page-formations)
+    - [Page Calendrier](#page-calendrier)
+    - [Page Inscription](#page-inscription)
+    - [Page Contact](#page-contact)
+    - [Pages de Succès](#pages-de-succès)
+- [Backend - Côté Admin](#backend---côté-admin)
+    - [Dashboard](#dashboard)
+    - [Gestion des Pays](#gestion-des-pays)
+    - [Gestion des Villes](#gestion-des-villes)
+    - [Gestion des Formateurs](#gestion-des-formateurs)
+    - [Gestion des Domaines](#gestion-des-domaines)
+    - [Gestion des Sujets](#gestion-des-sujets)
+    - [Gestion des Cours](#gestion-des-cours)
+    - [Gestion des Formations](#gestion-des-formations)
+- [Technologies Utilisées](#technologies-utilisées)
+
+---
+
+## 🎯 Présentation
+
+Cette application permet de :
+
+- Présenter les formations d'une entreprise.
+- Filtrer par thématique, spécialité, lieu, etc.
+- S'inscrire à une formation.
+- Gérer toutes les entités associées via un panneau admin (pays, villes, formateurs...).
+
+---
+
+## 🌐 Frontend - Côté Client
+
+### 🏠 Home Page
+
+![Screenshot](screenshots/frontend-home.png)
+
+Contient :
+- Header et Footer
+- Bannière d’accueil
+- À propos de l’entreprise
+- Nos formateurs
+- Nos performances
+- Nos domaines de formation
+
+---
+
+### 🎓 Page Formations
+
+![Screenshot](screenshots/frontend-formations.png)
+
+Contient :
+- Filtres (Thématique, Spécialité, Formation, Lieu)
+- Boutons de recherche et réinitialisation
+- Liste de cartes formations
+- Bouton pour s’inscrire
+
+---
+
+### 📅 Page Calendrier
+
+![Screenshot](screenshots/frontend-calendrier.png)
+
+Contient :
+- Liste des prochaines formations avec :
+    - Nom du cours
+    - Dates
+    - Ville
+    - Mode
+    - Prix
+    - Bouton d’inscription
+
+---
+
+### 📝 Page Inscription
+
+![Screenshot](screenshots/frontend-inscription.png)
+
+Contient :
+- Détails de la formation
+- Formulaire d’inscription
+
+---
+
+### 📬 Page Contact
+
+![Screenshot](screenshots/frontend-contact.png)
+
+Contient :
+- Formulaire pour envoyer un message
+
+---
+
+### ✅ Pages de Succès
+
+- Confirmation d’inscription  
+  ![Screenshot](screenshots/frontend-success-inscription.png)
+
+- Confirmation de message de contact  
+  ![Screenshot](screenshots/frontend-success-contact.png)
+
+---
+
+## 🔐 Backend - Côté Admin
+
+### 📊 Dashboard
+
+![Screenshot](screenshots/admin-dashboard.png)
+
+---
+
+### 🌍 Gestion des Pays
+
+![Screenshot](screenshots/admin-pays.png)
+
+---
+
+### 🏙️ Gestion des Villes
+
+![Screenshot](screenshots/admin-villes.png)
+
+---
+
+### 👩‍🏫 Gestion des Formateurs
+
+![Screenshot](screenshots/admin-formateurs.png)
+
+---
+
+### 📘 Gestion des Domaines
+
+![Screenshot](screenshots/admin-domaines.png)
+
+---
+
+### 📚 Gestion des Sujets
+
+![Screenshot](screenshots/admin-sujets.png)
+
+---
+
+### 📒 Gestion des Cours
+
+![Screenshot](screenshots/admin-cours.png)
+![Screenshot](screenshots/admin-add-cours.png)
+
+---
+
+### 🗓️ Gestion des Formations
+
+![Screenshot](screenshots/admin-formations.png)
+
+---
+
+## ⚙️ Technologies Utilisées
+
+- PHP avec architecture MVC
+- HTML, CSS, Tailwind CSS
+- JavaScript
+- MySQL + phpMyAdmin
+- Apache
+- Docker
+- Composer (autoloading)
+
+---
+
 ### Warning: mkdir(): Permission denied : 
 
 sudo chown -R www-data:www-data uploads              
@@ -51,104 +231,115 @@ sudo chmod -R 755 uploads
 
 ```
 -- Insert countries
-INSERT INTO countries (name) VALUES
-('France'), ('Germany'), ('UK'), ('Spain'), ('Remote');
-```
-```
+INSERT INTO countries (id, name) VALUES
+(1, 'France'),
+(2, 'Morocco'),
+(3, 'Germany'),
+(4, 'USA'),
+(5, 'Canada');
+
 -- Insert cities
-INSERT INTO cities (name, country_id) VALUES
-('Paris', 1), ('Berlin', 2), ('London', 3), ('Madrid', 4), ('Remote', 5);
-```
+INSERT INTO cities (id, name, country_id) VALUES
+(1, 'Paris', 1),
+(2, 'Casablanca', 2),
+(3, 'Berlin', 3),
+(4, 'New York', 4),
+(5, 'Montreal', 5);
 
-```
 -- Insert domains
-INSERT INTO domain (name, description) VALUES 
-('Management', 'Project management methodologies including Scrum, Prince2, and service management frameworks like ITIL and COBIT.'),
-('Computer Science', 'Technical computer science topics including programming and data processing'),
-('Networking', 'Network infrastructure and certification courses including CISCO certifications and network security.'),
-('IT Development', 'Programming and development courses covering JEE, Web Technologies, and other cutting-edge frameworks.'),
-('Big Data', 'Advanced courses on data processing frameworks including Hadoop, Spark, and modern analytics tools.');
-```
+INSERT INTO domain (id, name, description) VALUES
+(1, 'Management', 'Gestion et leadership'),
+(2, 'Informatique', 'Technologies de l’information'),
+(3, 'Réseaux', 'Administration et sécurité réseau')
+(4, 'Cloud Computing', 'Infrastructure et services cloud'),
+(5, 'Cybersécurité', 'Protection des systèmes et des données'),
+(6, 'Intelligence Artificielle', 'Apprentissage automatique et IA'),
+(7, 'Finance', 'Gestion financière et comptabilité'),
+(8, 'Ressources Humaines', 'Gestion du personnel et développement RH'),
+(9, 'Marketing Digital', 'Stratégies marketing en ligne');
 
-```
 -- Insert subjects
-INSERT INTO subjects (name, shortDescription, longDescription, individualBenefit, businessBenefit, logo, domain_id) VALUES
-('Project Management', 'Project management methodologies', 'Various methodologies for project management including agile and traditional approaches', 'Career advancement and improved leadership skills', 'Better project outcomes and efficient resource utilization', '/images/project-management.png', 1),
-('Service Management', 'IT service management frameworks', 'Frameworks for managing IT services and operations', 'Professional certification and expertise', 'Improved service delivery and operational efficiency', '/images/service-management.png', 1),
-('Programming', 'Modern programming languages and paradigms', 'Various programming languages and development approaches', 'Technical skill development', 'Development capability and digital transformation', '/images/programming.png', 2),
-('Data Processing', 'Big data frameworks and tools', 'Technologies for processing and analyzing large datasets', 'Data analysis skills', 'Data-driven decision making capabilities', '/images/data-processing.png', 3),
-('Web Development', 'Modern web technologies', 'Frontend and backend technologies for web applications', 'Web development expertise', 'Digital presence and application development', '/images/web-dev.png', 2);
-```
+INSERT INTO subjects (id, name, shortDescription, longDescription, individualBenefit, businessBenefit, logo, domain_id) VALUES
+(1, 'Management de Projet', 'Gestion de projet agile', 'Apprentissage des méthodes Scrum et Prince2', 'Compétence en gestion agile', 'Livraison rapide des projets', 'mgmt_project.png', 1),
+(2, 'Management des Services', 'Gestion des services IT', 'ITIL, COBIT et autres frameworks', 'Maîtrise des processus IT', 'Optimisation des ressources IT', 'mgmt_services.png', 1),
+(3, 'Big Data', 'Analyse de données massives', 'Spark, Hadoop et écosystème Big Data', 'Découverte de la data science', 'Valorisation de la donnée', 'big_data.png', 2),
+(4, 'Développement Web', 'Technos web', 'HTML, CSS, JS, React, Node.js', 'Création d’applications modernes', 'Présence digitale renforcée', 'web.png', 2),
+(5, 'Infrastructure Réseau', 'Réseaux et sécurité', 'Cisco, firewalls, VPN', 'Certifications reconnues', 'Sécurité améliorée', 'network.png', 3)
+(6, 'AWS Essentials', 'Bases d’AWS', 'Introduction aux services AWS : EC2, S3, RDS...', 'Connaissance cloud', 'Maîtrise des services cloud', 'aws.png', 4),
+(7, 'Microsoft Azure', 'Cloud Azure', 'Déploiement et gestion de ressources Azure', 'Compétence cloud Microsoft', 'Optimisation infrastructure IT', 'azure.png', 4),
+(8, 'Sécurité Réseau', 'Protection des réseaux', 'Pare-feu, VPN, détection d’intrusion', 'Bases solides en cybersécurité', 'Sécurisation des données', 'security.png', 5),
+(9, 'Hacking Éthique', 'Pentesting', 'Test d’intrusion et analyse de vulnérabilités', 'Savoir anticiper les attaques', 'Renforcement de la sécurité', 'hacking.png', 5),
+(10, 'Machine Learning', 'ML supervisé', 'Régression, classification, modèles prédictifs', 'Maîtrise des modèles ML', 'Exploitation des données', 'ml.png', 6),
+(11, 'Deep Learning', 'Réseaux neuronaux profonds', 'CNN, RNN, TensorFlow', 'Spécialisation IA', 'Valorisation avancée des données', 'deep.png', 6),
+(12, 'Comptabilité Générale', 'Principes comptables', 'Bilans, journaux, comptes de résultat', 'Autonomie financière', 'Suivi précis des finances', 'accounting.png', 7),
+(13, 'Analyse Financière', 'Diagnostic d’entreprise', 'Ratios, cashflow, rentabilité', 'Lecture des états financiers', 'Décision stratégique éclairée', 'finance.png', 7),
+(14, 'Recrutement & RH', 'Techniques RH', 'Sourcing, entretiens, intégration', 'Compétences RH concrètes', 'Meilleur recrutement', 'rh.png', 8),
+(15, 'Formation & Développement', 'Plan de carrière', 'GPEC, montée en compétence', 'Développement personnel', 'Fidélisation du personnel', 'gpec.png', 8),
+(16, 'SEO & Référencement', 'Optimisation SEO', 'Mots-clés, contenu, backlinks', 'Visibilité web', 'Meilleur positionnement Google', 'seo.png', 9),
+(17, 'Publicité Digitale', 'Ads & Analytics', 'Google Ads, réseaux sociaux, KPI', 'Maîtrise du webmarketing', 'Acquisition client optimisée', 'ads.png', 9);
 
-```
 -- Insert courses
-INSERT INTO courses (name, content, description, audience, duration, testIncluded, testContent, logo, subject_id) VALUES
-('Scrum Fundamentals', 'Scrum methodology basics and implementation', 'Core principles and practices of the Scrum framework', 'Project managers, team leads, and developers', '3 days', 'Yes', 'Multiple choice and scenario-based questions', '/images/scrum.png', 1),
-('ITIL Foundation', 'ITIL framework basics and best practices', 'Core concepts of IT service management using ITIL', 'IT managers and service delivery professionals', '3 days', 'Yes', 'ITIL Foundation certification exam preparation', '/images/itil.png', 1),
-('COBIT 2019 Foundation', 'COBIT governance framework principles', 'Comprehensive overview of the COBIT governance framework', 'IT governance professionals and managers', '3 days', 'Yes', 'COBIT certification examination', '/images/cobit.png', 1),
-('Advanced JEE Development', 'Enterprise Java programming techniques', 'Advanced Java EE development principles and practices', 'Experienced Java developers', '5 days', 'No', 'Practical project implementation', '/images/jee.png', 3),
-('Big Data with Hadoop', 'Hadoop ecosystem and implementation', 'Working with the Hadoop framework for big data processing', 'Data engineers and analysts', '5 days', 'Yes', 'Hadoop certification preparation', '/images/hadoop.png', 4),
-('Modern Web Technologies', 'Current web development frameworks', 'Frontend and backend technologies for modern web applications', 'Web developers of all levels', '5 days', 'No', 'Portfolio project development', '/images/web-tech.png', 5);
-```
+INSERT INTO courses (id, name, content, description, audience, duration, testIncluded, testContent, logo, subject_id) VALUES
+(1, 'Scrum', 'Méthodes agiles Scrum', 'Organisation agile', 'Chefs de projet', '3 jours', 'Oui', 'QCM final', 'scrum.png', 1),
+(2, 'Prince2', 'Gestion projet traditionnelle', 'Outils de planification', 'PMO, directeurs', '4 jours', 'Oui', 'Étude de cas', 'prince2.png', 1),
+(3, 'ITIL v4', 'IT Service Management', 'Bonnes pratiques ITIL', 'Responsables IT', '2 jours', 'Oui', 'QCM certifiant', 'itil.png', 2),
+(4, 'COBIT 5', 'Gouvernance IT', 'Contrôle et pilotage IT', 'DSI, RSSI', '3 jours', 'Oui', 'Cas pratiques', 'cobit.png', 2),
+(5, 'Hadoop', 'Big Data batch', 'Traitement de gros volumes', 'Analystes, Devs', '5 jours', 'Oui', 'TP Hadoop', 'hadoop.png', 3),
+(6, 'Spark', 'Traitement distribué', 'Spark Core, SQL, MLlib', 'Data engineers', '5 jours', 'Oui', 'Examen pratique', 'spark.png', 3),
+(7, 'HTML/CSS/JS', 'Frontend de base', 'Sites web statiques', 'Débutants web', '3 jours', 'Non', '', 'frontend.png', 4),
+(8, 'React.js', 'Framework JS moderne', 'Composants, hooks, routing', 'Dév web', '4 jours', 'Oui', 'Projet final', 'react.png', 4),
+(9, 'Cisco CCNA', 'Réseaux de base', 'Routage, switching, TCP/IP', 'Techniciens réseau', '6 jours', 'Oui', 'Simulations Cisco', 'cisco.png', 5);
 
-```
 -- Insert trainers
-INSERT INTO trainers (firstName, lastName, description, photo) VALUES
-('Michel', 'Dubois', 'Certified Scrum Master with 10+ years of experience in agile methodologies', '/images/trainers/michel.jpg'),
-('Sophie', 'Martin', 'ITIL Expert with extensive experience in service management', '/images/trainers/sophie.jpg'),
-('Hans', 'Mueller', 'Java architect with 15 years of enterprise development experience', '/images/trainers/hans.jpg'),
-('James', 'Wilson', 'Big Data specialist and Apache committer', '/images/trainers/james.jpg'),
-('Elena', 'Rodriguez', 'COBIT certified consultant with governance expertise', '/images/trainers/elena.jpg'),
-('David', 'Chen', 'Full-stack developer specializing in modern web frameworks', '/images/trainers/david.jpg');
-```
+INSERT INTO trainers (id, firstName, lastName, description, photo) VALUES
+(1, 'Alice', 'Durand', 'Experte Scrum et Prince2', 'alice.jpg'),
+(2, 'Karim', 'El Idrissi', 'Formateur Big Data', 'karim.jpg'),
+(3, 'Mélanie', 'Schmidt', 'Coach ITIL/COBIT', 'melanie.jpg'),
+(4, 'John', 'Doe', 'Développeur React', 'john.jpg'),
+(5, 'Omar', 'Benali', 'Expert réseau Cisco', 'omar.jpg');
 
-```
 -- Insert formations
-INSERT INTO formations (price, mode, course_id, city_id, trainer_id) VALUES
-(1200.00, 'présentiel', 1, 1, 1), -- Scrum in Paris with Michel
-(950.00, 'distanciel', 2, 5, 2), -- ITIL Remote with Sophie
-(1800.00, 'présentiel', 4, 2, 3), -- JEE in Berlin with Hans
-(2200.00, 'présentiel', 5, 3, 4), -- Hadoop in London with James
-(1350.00, 'présentiel', 3, 4, 5), -- COBIT in Madrid with Elena
-(1500.00, 'distanciel', 6, 5, 6); -- Web Tech Remote with David
-```
+INSERT INTO formations (id, price, mode, course_id, city_id, trainer_id) VALUES
+(1, 899.99, 'présentiel', 1, 1, 1),
+(2, 1050.00, 'distanciel', 2, 2, 1),
+(3, 750.00, 'présentiel', 3, 3, 3),
+(4, 990.00, 'distanciel', 4, 4, 3),
+(5, 1100.00, 'présentiel', 5, 5, 2),
+(6, 1150.00, 'distanciel', 6, 1, 2),
+(7, 600.00, 'présentiel', 7, 2, 4),
+(8, 800.00, 'distanciel', 8, 3, 4),
+(9, 1200.00, 'présentiel', 9, 4, 5);
 
-```
 -- Insert formation dates
 INSERT INTO formationDate (date, formation_id) VALUES
-('2025-06-15', 1), -- Scrum day 1
-('2025-06-16', 1), -- Scrum day 2
-('2025-06-17', 1), -- Scrum day 3
-('2025-07-05', 2), -- ITIL day 1
-('2025-07-06', 2), -- ITIL day 2
-('2025-07-07', 2), -- ITIL day 3
-('2025-06-22', 3), -- JEE day 1
-('2025-06-23', 3), -- JEE day 2
-('2025-06-24', 3), -- JEE day 3
-('2025-06-25', 3), -- JEE day 4
-('2025-06-26', 3), -- JEE day 5
-('2025-07-10', 4), -- Hadoop day 1
-('2025-07-11', 4), -- Hadoop day 2
-('2025-07-12', 4), -- Hadoop day 3
-('2025-07-13', 4), -- Hadoop day 4
-('2025-07-14', 4), -- Hadoop day 5
-('2025-08-03', 5), -- COBIT day 1
-('2025-08-04', 5), -- COBIT day 2
-('2025-08-05', 5), -- COBIT day 3
-('2025-07-20', 6), -- Web Tech day 1
-('2025-07-21', 6), -- Web Tech day 2
-('2025-07-22', 6), -- Web Tech day 3
-('2025-07-23', 6), -- Web Tech day 4
-('2025-07-24', 6); -- Web Tech day 5
+('2025-06-10', 1),
+('2025-06-15', 1),
+('2025-07-01', 2),
+('2025-07-10', 3),
+('2025-08-01', 4),
+('2025-08-05', 5),
+('2025-08-20', 6),
+('2025-09-01', 7),
+('2025-09-10', 8),
+('2025-09-15', 9);
 
--- Insert some sample registrations
-INSERT INTO registrations (firstName, lastName, phone, email, company, paid, formation_id, registration_date) VALUES
-('Jean', 'Dupont', '+33612345678', 'jean.dupont@example.com', 'Acme Corp', true, 1, '2025-05-10 14:30:00'),
-('Marie', 'Laurent', '+33698765432', 'marie.laurent@example.com', 'Tech Solutions', false, 1, '2025-05-12 09:15:00'),
-('Thomas', 'Schmidt', '+49123456789', 'thomas.schmidt@example.de', 'German Tech', true, 3, '2025-05-15 11:20:00'),
-('Anna', 'Müller', '+49987654321', 'anna.mueller@example.de', 'Deutsche Software', false, 3, '2025-05-16 13:45:00'),
-('John', 'Smith', '+44123456789', 'john.smith@example.co.uk', 'British Systems', true, 4, '2025-06-01 10:30:00'),
-('Carlos', 'Garcia', '+34123456789', 'carlos.garcia@example.es', 'Spanish IT', false, 5, '2025-06-05 16:20:00'),
-('Pierre', 'Martin', '+33687654321', 'pierre.martin@example.com', 'French Tech', true, 2, '2025-06-10 08:45:00'),
-('Li', 'Wei', '+33612378945', 'li.wei@example.com', 'Global Solutions', false, 6, '2025-06-15 14:10:00');
+-- Insert registrations
+INSERT INTO registrations (firstName, lastName, phone, email, company, paid, formation_id) VALUES
+('Jean', 'Martin', '0601020304', 'jean.martin@example.com', 'TechCorp', TRUE, 1),
+('Sara', 'Bennani', '0661122334', 'sara.bennani@example.com', 'DataPro', FALSE, 2),
+('Tom', 'Müller', '01769874512', 'tom.muller@example.de', 'SoftGmbH', TRUE, 3),
+('Emily', 'Smith', '2125557890', 'emily.smith@example.com', 'InfoTech', TRUE, 4),
+('Mehdi', 'Ouahbi', '0623344556', 'mehdi.ouahbi@example.ma', 'WebGen', FALSE, 5),
+('Linda', 'Lambert', '0611223344', 'linda.lambert@example.fr', 'CloudInc', TRUE, 6),
+('Mohamed', 'Youssef', '0666778899', 'mohamed.youssef@example.ma', 'DevSolutions', TRUE, 7),
+('Sophie', 'Durand', '0633445566', 'sophie.durand@example.fr', 'NetCom', TRUE, 8),
+('Ali', 'Khan', '001202333444', 'ali.khan@example.ca', 'MapleNetworks', FALSE, 9);
+
+-- Insert contacts
+INSERT INTO contacts (name, email, phone, subject, message) VALUES
+('Paul Lefèvre', 'paul.lefevre@example.com', '0611223344', 'Demande de formation', 'Bonjour, je souhaite plus d’infos sur la formation Scrum.'),
+('Leila Zahraoui', 'leila.zahraoui@example.com', '0655667788', 'Inscription', 'Je veux m’inscrire à la formation Spark.'),
+('Amine Lahcen', 'amine.lahcen@example.com', '0622334455', 'Tarif entreprise', 'Quels sont les tarifs pour un groupe ?'),
+('Anna Fischer', 'anna.fischer@example.de', '01763441222', 'Formation COBIT', 'Avez-vous des sessions COBIT à distance ?');
+
 ```

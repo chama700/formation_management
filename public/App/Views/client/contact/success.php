@@ -8,28 +8,14 @@
     <link rel="stylesheet" href="../../../../css/success.css" />
 </head>
 <body>
-<div class="success-container">
-    <div class="floating-element">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="15" stroke="white" stroke-width="2" fill="none"/>
-        </svg>
-    </div>
-    <div class="floating-element">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-            <rect x="5" y="5" width="20" height="20" stroke="white" stroke-width="2" fill="none" rx="3"/>
-        </svg>
-    </div>
-    <div class="floating-element">
-        <svg width="35" height="35" viewBox="0 0 35 35" fill="none">
-            <polygon points="17.5,5 22,15 32,15 24,22 27,32 17.5,27 8,32 11,22 3,15 13,15" stroke="white" stroke-width="2" fill="none"/>
-        </svg>
-    </div>
-
-    <div class="success-card">
-        <div class="success-icon"></div>
-        <h1 class="success-title">Merci de nous avoir contactés !</h1>
-        <p class="success-message">Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.</p>
-        <a href="/client/home" class="success-button">Retour à la page d'accueil</a>
+<div class="moodle-success-wrapper">
+    <div class="moodle-success-card">
+        <div class="moodle-success-icon">✓</div>
+        <h1 class="moodle-success-title">Message envoyé</h1>
+        <p class="moodle-success-text">
+            Merci pour votre message. Nous reviendrons vers vous dès que possible.
+        </p>
+        <a href="/client/home" class="moodle-success-button">Retour à l’accueil</a>
     </div>
 </div>
 </body>

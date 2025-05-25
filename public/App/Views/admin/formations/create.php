@@ -1,99 +1,71 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        padding: 20px;
-    }
+<!-- views/admin/formations/create.php -->
+<div class="admin-form-container max-w-4xl mx-auto rounded-lg p-8 mt-12 font-sans">
+    <h1 class="text-3xl font-bold mb-8 text-[#005a9c] text-center">Créer une formation</h1>
 
-    h2 {
-        color: #333;
-        margin-bottom: 20px;
-    }
+    <form action="/admin/formations/store" method="post" enctype="multipart/form-data" class="bg-[#F0F0F0] p-8 rounded-2xl shadow-lg space-y-6 max-w-4xl">
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Prix *</label>
+            <input name="price" type="number" step="0.01" placeholder="Prix" required
+                   class="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+        </div>
 
-    form {
-        background: #fff;
-        padding: 25px;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        max-width: 600px;
-        margin: 0 auto;
-    }
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Mode *</label>
+            <select name="mode" required
+                    class="w-full border border-[#ccc] rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+                <option value="présentiel">Présentiel</option>
+                <option value="distanciel">Distanciel</option>
+            </select>
+        </div>
 
-    input[type="number"],
-    input[type="date"],
-    select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Cours associé *</label>
+            <select name="course_id" required
+                    class="w-full border border-[#ccc] rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+                <option value="">Choisir un cours</option>
+                <?php foreach ($courses as $course): ?>
+                    <option value="<?= $course['id'] ?>"><?= htmlspecialchars($course['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-    label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: bold;
-        color: #555;
-    }
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Ville *</label>
+            <select name="city_id" required
+                    class="w-full border border-[#ccc] rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+                <option value="">Choisir une ville</option>
+                <?php foreach ($cities as $city): ?>
+                    <option value="<?= $city['id'] ?>"><?= htmlspecialchars($city['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-    button[type="submit"] {
-        background-color: #28a745;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Formateur *</label>
+            <select name="trainer_id" required
+                    class="w-full border border-[#ccc] rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+                <option value="">Choisir un formateur</option>
+                <?php foreach ($trainers as $trainer): ?>
+                    <option value="<?= $trainer['id'] ?>"><?= htmlspecialchars($trainer['firstName']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-    button[type="submit"]:hover {
-        background-color: #218838;
-    }
-</style>
+        <div>
+            <label class="block text-sm font-semibold text-[#002B45] mb-1">Dates de la formation</label>
+            <div class="space-y-2">
+                <input type="date" name="dates[]" class="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+                <input type="date" name="dates[]" class="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+                <input type="date" name="dates[]" class="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#F98012]">
+            </div>
+        </div>
 
-<h2>Créer une formation</h2>
-
-<form action="/admin/formations/store" method="post">
-    <label for="price">Prix</label>
-    <input type="number" step="0.01" name="price" placeholder="Prix" required>
-
-    <label for="mode">Mode</label>
-    <select name="mode" required>
-        <option value="présentiel">Présentiel</option>
-        <option value="distanciel">Distanciel</option>
-    </select>
-
-    <label for="course_id">Cours</label>
-    <select name="course_id" required>
-        <option value="">Choisir un cours</option>
-        <?php foreach ($courses as $course): ?>
-            <option value="<?= $course['id'] ?>"><?= $course['name'] ?></option>
-        <?php endforeach; ?>
-    </select>
-
-    <label for="city_id">Ville</label>
-    <select name="city_id" required>
-        <option value="">Choisir une ville</option>
-        <?php foreach ($cities as $city): ?>
-            <option value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
-        <?php endforeach; ?>
-    </select>
-
-    <label for="trainer_id">Formateur</label>
-    <select name="trainer_id" required>
-        <option value="">Choisir un formateur</option>
-        <?php foreach ($trainers as $trainer): ?>
-            <option value="<?= $trainer['id'] ?>"><?= $trainer['firstName'] ?></option>
-        <?php endforeach; ?>
-    </select>
-
-    <label>Dates de la formation :</label>
-    <input type="date" name="dates[]">
-    <input type="date" name="dates[]">
-    <input type="date" name="dates[]">
-
-    <button type="submit">Créer</button>
-</form>
+        <div class="text-right pt-4">
+            <button type="submit"
+                    class="bg-[#F98012] text-white font-semibold px-6 py-2 rounded-lg hover:bg-[#e26f05] transition duration-300">
+                Créer
+            </button>
+            <a href="/admin/formations" class="ml-4 text-sm text-[#005a9c] hover:underline">Annuler</a>
+        </div>
+    </form>
+</div>

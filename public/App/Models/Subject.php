@@ -93,12 +93,15 @@ class Subject
     public function update($id, $data)
     {
         $sql = "UPDATE subjects SET 
-                name = :name,
-                shortDescription = :shortDescription,
-                longDescription = :longDescription,
-                individualBenefit = :individualBenefit,
-                businessBenefit = :businessBenefit,
-                domain_id = :domain_id";
+            name = :name,
+            shortDescription = :shortDescription,
+            longDescription = :longDescription,
+            individualBenefit = :individualBenefit,
+            businessBenefit = :businessBenefit";
+
+        if (isset($data['domain_id']) && $data['domain_id'] !== null) {
+            $sql .= ", domain_id = :domain_id";
+        }
 
         if (isset($data['logo'])) {
             $sql .= ", logo = :logo";
@@ -112,14 +115,20 @@ class Subject
         $stmt->bindValue(':longDescription', $data['longDescription']);
         $stmt->bindValue(':individualBenefit', $data['individualBenefit']);
         $stmt->bindValue(':businessBenefit', $data['businessBenefit']);
-        $stmt->bindValue(':domain_id', $data['domain_id']);
+
+        if (isset($data['domain_id']) && $data['domain_id'] !== null) {
+            $stmt->bindValue(':domain_id', $data['domain_id']);
+        }
+
         if (isset($data['logo'])) {
             $stmt->bindValue(':logo', $data['logo']);
         }
+
         $stmt->bindValue(':id', $id);
 
         return $stmt->execute();
     }
+
 
     /**
      * @param $id

@@ -21,7 +21,7 @@ class CalendarController extends BaseControllerFrontend
         }
 
         $this->view('client/calendar/index', [
-            'title' => 'FormExpert - Calendar',
+            'title' => 'Moodle - Calendar',
             'formations' => $formations
         ]);
     }

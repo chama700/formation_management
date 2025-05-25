@@ -1,78 +1,380 @@
-form {
-    background-color: white;
-    max-width: 800px;
-    margin: 4rem auto;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+/* registration.css */
+
+/* CSS Variables for consistent theming */
+:root {
+    --primary-color: #F98012;
+    --secondary-color: #194866;
+    --background-light: #f8fafc;
+    --text-color: #334155;
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-form h1 {
+/* Main Section Container */
+.section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+/* Banner Section */
+.banner {
+    grid-column: 1 / -1;
     text-align: center;
-    color: var(--secondary-color);
+    padding: 4rem 2rem;
     margin-bottom: 2rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+.banner .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Content Grid Layout */
+@media (min-width: 768px) {
+    .section {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+    }
+
+    .banner {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Formation Info Card */
+.formation-info {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-large);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInLeft 1s ease-out 0.3s both;
+}
+
+.formation-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), #ff6b35);
+}
+
+.formation-info h3 {
+    color: var(--secondary-color);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.formation-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formation-summary p {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(249, 128, 18, 0.05);
+    border-radius: 12px;
+    margin: 0;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.formation-summary p:hover {
+    background: rgba(249, 128, 18, 0.1);
+    border-left-color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.formation-summary p strong {
+    font-weight: 600;
+    color: var(--primary-color);
+    min-width: 120px;
+    font-size: 0.95rem;
+    margin-right: 1rem;
+}
+
+/* Form Styles */
+form {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-large);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInRight 1s ease-out 0.6s both;
+}
+
+form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary-color), #2c5aa0);
+}
+
+form h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
 }
 
 form label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
     color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+}
+
+form label:first-of-type {
+    margin-top: 0;
 }
 
 form input[type="text"],
 form input[type="email"],
-form input[type="checkbox"] {
+form input[type="hidden"] {
     width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
     font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
 }
 
-form input[type="checkbox"] {
-    width: auto;
-    margin-right: 0.5rem;
-    vertical-align: middle;
+form input[type="text"]:focus,
+form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(249, 128, 18, 0.1);
+    background: white;
 }
 
-form button {
-    display: inline-block;
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-form button:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-}
-
+/* Radio Button Group */
 .paid-group {
     display: flex;
-    gap: 20px;
+    gap: 1.5rem;
     align-items: center;
-    margin-bottom: 1em;
-}
-.paid-group label {
-    margin: 0; /* remove extra margin */
-    cursor: pointer;
-}
-form h2 {
-    margin-bottom: 1em;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(25, 72, 102, 0.05);
+    border-radius: 12px;
 }
 
-@media (max-width: 600px) {
+.paid-group input[type="radio"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.5rem;
+    accent-color: var(--primary-color);
+}
+
+.paid-group label {
+    margin: 0;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+}
+
+/* Submit Button */
+form button[type="submit"] {
+    width: 100%;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, var(--primary-color), #ff6b35);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 10px 25px rgba(249, 128, 18, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+form button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(249, 128, 18, 0.4);
+}
+
+form button[type="submit"]:active {
+    transform: translateY(-1px);
+}
+
+form button[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(249, 128, 18, 0.2);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .section {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .banner {
+        padding: 2rem 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .formation-info,
     form {
         padding: 1.5rem;
-        margin: 2rem;
     }
+
+    .formation-summary p {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .formation-summary p strong {
+        margin-bottom: 0.5rem;
+        margin-right: 0;
+        min-width: unset;
+    }
+
+    .paid-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* Floating background elements */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::before {
+    top: 10%;
+    right: 10%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(249, 128, 18, 0.1), transparent);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+body::after {
+    bottom: 20%;
+    left: 5%;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(25, 72, 102, 0.1), transparent);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Loading state for form submission */
+form.loading button[type="submit"] {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+form.loading button[type="submit"]:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Success state */
+.success-message {
+    background: linear-gradient(135deg, var(--success-color), #059669);
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 1rem;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+/* Error state */
+.error-message {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 1rem;
+    animation: fadeInDown 0.5s ease-out;
 }

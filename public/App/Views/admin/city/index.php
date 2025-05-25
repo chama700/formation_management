@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liste des Villes - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --moodle-blue: #005a9c;
+            --moodle-light-blue: #0078d4;
+            --moodle-orange: #f58220;
+            --moodle-gray-light: #f3f6f8;
+            --moodle-gray-dark: #4a4a4a;
+        }
+        body {
+            background-color: var(--moodle-gray-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--moodle-gray-dark);
+        }
+    </style>
     <script>
         function confirmDelete(event) {
             if (!confirm("Are you sure you want to delete this city?")) {
@@ -15,120 +29,155 @@
         }
     </script>
 </head>
-<body class="bg-gray-100 font-sans">
-<div class="container mx-auto p-6">
+<body class="min-h-screen">
 
-    <h1 class="text-4xl font-bold text-center mb-10 text-blue-700">List des Villes</h1>
+<div class="container max-w-7xl mx-auto p-6">
+    <header class="mb-8">
+        <h1 class="text-5xl font-extrabold text-center text-var(--moodle-blue)">
+            Liste des Villes
+        </h1>
+        <p class="text-center mt-2 text-lg text-var(--moodle-gray-dark)">
+            Tableau de bord pour gérer vos villes enregistrées
+        </p>
+    </header>
 
-    <!-- Filter form -->
-    <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-        <form action="/admin/city" method="GET" class="flex space-x-4 flex-wrap items-center">
+    <!-- Filters -->
+    <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <form action="/admin/city" method="GET" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
 
-            <div class="flex items-center space-x-2">
-                <label for="filter_id" class="text-lg whitespace-nowrap">ID :</label>
-                <input type="text" id="filter_id" name="filter_id"
-                       value="<?= htmlspecialchars($_GET['filter_id'] ?? '') ?>"
-                       placeholder="ID ville"
-                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-24 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div>
+                <label for="filter_id" class="block text-sm font-semibold text-[var(--moodle-gray-dark)] mb-1">ID</label>
+                <input
+                        type="text"
+                        id="filter_id"
+                        name="filter_id"
+                        value="<?= htmlspecialchars($_GET['filter_id'] ?? '') ?>"
+                        placeholder="ID ville"
+                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-[var(--moodle-light-blue)] focus:outline-none"
+                />
             </div>
 
-            <div class="flex items-center space-x-2">
-                <label for="filter_name" class="text-lg whitespace-nowrap">Nom :</label>
-                <input type="text" id="filter_name" name="filter_name"
-                       value="<?= htmlspecialchars($_GET['filter_name'] ?? '') ?>"
-                       placeholder="Nom ville"
-                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div>
+                <label for="filter_name" class="block text-sm font-semibold text-[var(--moodle-gray-dark)] mb-1">Nom</label>
+                <input
+                        type="text"
+                        id="filter_name"
+                        name="filter_name"
+                        value="<?= htmlspecialchars($_GET['filter_name'] ?? '') ?>"
+                        placeholder="Nom ville"
+                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-[var(--moodle-light-blue)] focus:outline-none"
+                />
             </div>
 
-            <div class="flex items-center space-x-2">
-                <label for="filter_country_id" class="text-lg whitespace-nowrap">Pays ID :</label>
-                <input type="text" id="filter_country_id" name="filter_country_id"
-                       value="<?= htmlspecialchars($_GET['filter_country_id'] ?? '') ?>"
-                       placeholder="ID pays"
-                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-24 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div>
+                <label for="filter_country_id" class="block text-sm font-semibold text-[var(--moodle-gray-dark)] mb-1">Pays ID</label>
+                <input
+                        type="text"
+                        id="filter_country_id"
+                        name="filter_country_id"
+                        value="<?= htmlspecialchars($_GET['filter_country_id'] ?? '') ?>"
+                        placeholder="ID pays"
+                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-[var(--moodle-light-blue)] focus:outline-none"
+                />
             </div>
 
-            <div class="flex items-center space-x-2">
-                <label for="filter_country_name" class="text-lg whitespace-nowrap">Nom Pays :</label>
-                <input type="text" id="filter_country_name" name="filter_country_name"
-                       value="<?= htmlspecialchars($_GET['filter_country_name'] ?? '') ?>"
-                       placeholder="Nom pays"
-                       class="border border-gray-300 rounded-lg px-3 py-1.5 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div>
+                <label for="filter_country_name" class="block text-sm font-semibold text-[var(--moodle-gray-dark)] mb-1">Nom Pays</label>
+                <input
+                        type="text"
+                        id="filter_country_name"
+                        name="filter_country_name"
+                        value="<?= htmlspecialchars($_GET['filter_country_name'] ?? '') ?>"
+                        placeholder="Nom pays"
+                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-[var(--moodle-light-blue)] focus:outline-none"
+                />
             </div>
 
-            <div class="flex items-center space-x-3">
-                <button type="submit"
-                        class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+            <div class="col-span-full flex space-x-4 justify-end mt-2">
+                <button
+                        type="submit"
+                        class="bg-[var(--moodle-blue)] hover:bg-[var(--moodle-light-blue)] text-white font-semibold py-2 px-6 rounded-md transition"
+                >
                     Appliquer filtres
                 </button>
-                <a href="/admin/city"
-                   class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                <a
+                        href="/admin/city"
+                        class="bg-[var(--moodle-orange)] hover:bg-[#e97400] text-white font-semibold py-2 px-6 rounded-md transition"
+                >
                     Effacer les filtres
                 </a>
             </div>
         </form>
+    </section>
+
+    <!-- Add city button -->
+    <div class="text-right mb-6">
+        <a
+                href="/admin/city/create"
+                class="inline-block bg-[var(--moodle-blue)] hover:bg-[var(--moodle-light-blue)] text-white font-semibold px-6 py-3 rounded-md shadow-lg transition"
+        >+ Ajouter Ville</a
+        >
     </div>
 
-    <div class="text-right mb-4">
-        <a href="/admin/city/create"
-           class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition shadow">
-            + Ajouter Ville
-        </a>
-    </div>
-
-    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
-        <table class="min-w-full table-auto">
-            <thead class="bg-gray-200 text-gray-700">
+    <!-- Table -->
+    <section class="bg-white rounded-lg shadow-md overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse">
+            <thead class="bg-[var(--moodle-blue)] text-white text-left">
             <tr>
-                <th class="py-2 px-4 text-left">ID</th>
-                <th class="py-2 px-4 text-left">Nom des Villes</th>
-                <th class="py-2 px-4 text-left">ID_pays</th>
-                <th class="py-2 px-4 text-left">Nom des Pays</th>
-                <th class="py-2 px-4 text-left">Actions</th>
+                <th class="py-3 px-6 font-semibold">ID</th>
+                <th class="py-3 px-6 font-semibold">Nom des Villes</th>
+                <th class="py-3 px-6 font-semibold">ID Pays</th>
+                <th class="py-3 px-6 font-semibold">Nom des Pays</th>
+                <th class="py-3 px-6 font-semibold">Actions</th>
             </tr>
             </thead>
             <tbody>
             <?php if (!empty($cities)): ?>
                 <?php foreach ($cities as $city): ?>
                     <?php if (isset($_GET['edit_id']) && $_GET['edit_id'] == $city['id']): ?>
-                        <!-- Inline edit row -->
-                        <tr class="border-t bg-yellow-50">
+                        <!-- Edit row -->
+                        <tr class="bg-yellow-100 border-b">
                             <form action="/admin/city/update/<?= $city['id'] ?>" method="POST">
-                                <td class="py-2 px-4"><?= $city['id'] ?></td>
-                                <td class="py-2 px-4">
-                                    <input type="text" name="name" value="<?= htmlspecialchars($city['name']) ?>"
-                                           class="border rounded px-2 py-1 w-full">
+                                <td class="py-2 px-6 font-mono text-gray-700"><?= $city['id'] ?></td>
+                                <td class="py-2 px-6">
+                                    <input
+                                            type="text"
+                                            name="name"
+                                            value="<?= htmlspecialchars($city['name']) ?>"
+                                            class="border border-gray-400 rounded-md px-2 py-1 w-full"
+                                    />
                                 </td>
-                                <td class="py-2 px-4"><?= htmlspecialchars($city['country_id']) ?></td>
-                                <td class="py-2 px-4"><?= htmlspecialchars($city['country_name']) ?></td>
-                                <td class="py-2 px-4">
-                                    <button type="submit" class="text-green-600 hover:text-green-800">✔ Save</button>
-                                    <a href="/admin/city" class="text-gray-500 ml-4 hover:underline">Cancel</a>
+                                <td class="py-2 px-6 font-mono"><?= htmlspecialchars($city['country_id']) ?></td>
+                                <td class="py-2 px-6 font-mono"><?= htmlspecialchars($city['country_name']) ?></td>
+                                <td class="py-2 px-6 space-x-4">
+                                    <button type="submit" class="text-green-600 font-semibold hover:text-green-800">✔ Save</button>
+                                    <a href="/admin/city" class="text-gray-600 hover:underline ml-4">Cancel</a>
                                 </td>
                             </form>
                         </tr>
                     <?php else: ?>
                         <!-- Normal row -->
-                        <tr class="border-t">
-                            <td class="py-2 px-4"><?= $city['id'] ?></td>
-                            <td class="py-2 px-4"><?= htmlspecialchars($city['name']) ?></td>
-                            <td class="py-2 px-4"><?= htmlspecialchars($city['country_id']) ?></td>
-                            <td class="py-2 px-4"><?= htmlspecialchars($city['country_name']) ?></td>
-                            <td class="py-2 px-4">
-                                <a href="/admin/city?edit_id=<?= $city['id'] ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
-                                <a href="/admin/city/delete/<?= $city['id'] ?>" onclick="return confirmDelete(event)" class="text-red-500 hover:text-red-700 ml-4">Delete</a>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="py-3 px-6"><?= $city['id'] ?></td>
+                            <td class="py-3 px-6"><?= htmlspecialchars($city['name']) ?></td>
+                            <td class="py-3 px-6"><?= htmlspecialchars($city['country_id']) ?></td>
+                            <td class="py-3 px-6"><?= htmlspecialchars($city['country_name']) ?></td>
+                            <td class="py-3 px-6 space-x-4">
+                                <a href="/admin/city?edit_id=<?= $city['id'] ?>" class="text-[var(--moodle-light-blue)] hover:underline font-semibold">Modifier</a>
+                                <a href="/admin/city/delete/<?= $city['id'] ?>" onclick="return confirmDelete(event)" class="text-[var(--moodle-orange)] hover:underline font-semibold ml-4">Supprimer</a>
                             </td>
                         </tr>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="5" class="text-center py-4">No cities found.</td>
+                    <td colspan="5" class="text-center py-6 text-gray-500 font-semibold">Aucune ville trouvée.</td>
                 </tr>
             <?php endif; ?>
             </tbody>
         </table>
-    </div>
+    </section>
 </div>
+
 </body>
 </html>

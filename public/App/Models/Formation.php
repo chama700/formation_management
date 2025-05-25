@@ -26,21 +26,22 @@ class Formation extends Database
     public function getAll()
     {
         $sql = "SELECT 
-                f.*, 
-                c.name AS course_name, 
-                ci.name AS city_name, 
-                CONCAT(t.firstName, ' ', t.lastName) AS trainer_name,
-                s.logo AS subject_logo,
-                s.id AS subject_id,
-                s.name AS subject_name,
-                d.id AS domain_id,
-                d.name AS domain_name
-            FROM formations f
-            JOIN courses c ON f.course_id = c.id
-            JOIN subjects s ON c.subject_id = s.id
-            JOIN domain d ON s.domain_id = d.id
-            JOIN cities ci ON f.city_id = ci.id
-            JOIN trainers t ON f.trainer_id = t.id";
+            f.*, 
+            c.name AS course_name, 
+            ci.name AS city_name, 
+            CONCAT(t.firstName, ' ', t.lastName) AS trainer_name,
+            s.logo AS subject_logo,
+            s.id AS subject_id,
+            s.name AS subject_name,
+            d.id AS domain_id,
+            d.name AS domain_name,
+            c.logo AS courses_logo
+        FROM formations f
+        JOIN courses c ON f.course_id = c.id
+        JOIN subjects s ON c.subject_id = s.id
+        JOIN domain d ON s.domain_id = d.id
+        JOIN cities ci ON f.city_id = ci.id
+        JOIN trainers t ON f.trainer_id = t.id";
 
         return $this->query($sql);
     }
@@ -62,7 +63,24 @@ class Formation extends Database
      */
     public function find($id)
     {
-        return $this->queryOne("SELECT * FROM formations WHERE id = :id", ['id' => $id]);
+        $sql = "
+        SELECT f.*, 
+               c.name AS course_name, 
+               s.name AS subject_name, 
+               d.name AS domain_name, 
+               ci.name AS city_name,
+               CONCAT(t.firstName, ' ', t.lastName) AS trainer_name
+        FROM formations f
+        INNER JOIN courses c ON f.course_id = c.id
+        INNER JOIN subjects s ON c.subject_id = s.id
+        INNER JOIN domain d ON s.domain_id = d.id
+        INNER JOIN cities ci ON f.city_id = ci.id
+        INNER JOIN trainers t ON f.trainer_id = t.id
+        WHERE f.id = :id
+        LIMIT 1
+    ";
+
+        return $this->queryOne($sql, ['id' => $id]);
     }
 
     /**
